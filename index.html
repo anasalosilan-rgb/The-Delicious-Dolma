@@ -128,13 +128,12 @@
         <div class="badge">💚 عروض اليوم الوطني 96 🇸🇦</div>
     </div>
 
-    <!-- ملف MP3 مباشر وسريع من خادم CDN موثوق -->
+    <!-- رابط النشيد الوطني السعودي الرسمي (سارعي للمجد والعلياء) -->
     <audio id="nationalAudio" loop playsinline preload="auto">
-        <source src="https://actions.google.com/sounds/v1/ambiences/outdoor_festival.ogg" type="audio/ogg">
-        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=national-anthem-short-112378.mp3" type="audio/mpeg">
+        <source src="https://www.navyband.navy.mil/music/anthems/saudi-arabia.mp3" type="audio/mpeg">
     </audio>
 
-    <button class="audio-control" id="audioBtn" onclick="toggleNationalMusic()">▶️ تشغيل النشيد 🇸🇦</button>
+    <button class="audio-control" id="audioBtn" onclick="toggleNationalMusic()">▶️ تشغيل النشيد الوطني 🇸🇦</button>
 
     <div class="section-title">📦 عروض ورق العنب</div>
 
@@ -193,7 +192,7 @@
         audio.play().then(() => {
             audioBtn.innerText = "⏸️ إيقاف النشيد";
         }).catch(() => {
-            audioBtn.innerText = "▶️ اضغط هنا لتشغيل النشيد 🇸🇦";
+            audioBtn.innerText = "▶️ اضغط هنا لتشغيل النشيد الوطني 🇸🇦";
         });
     }
 
@@ -202,13 +201,13 @@
             playAudio();
         } else {
             audio.pause();
-            audioBtn.innerText = "▶️ تشغيل النشيد 🇸🇦";
+            audioBtn.innerText = "▶️ تشغيل النشيد الوطني 🇸🇦";
         }
     }
 
     let validCodes = JSON.parse(localStorage.getItem('dolmaValidCodes')) || [
-        'SA-96', 'DL-12', 'SA-23', 'DL-33', 'SA-22',
-        'DOLMA-96A', 'DOLMA-96SA', 'DOLMA-96', 'SAUDI96'
+        'ND96-101', 'ND96-102', 'ND96-103', 'ND96-104', 'ND96-105',
+        'DOLMA-96A', 'DOLMA-96B', 'DOLMA-96C', 'SAUDI96'
     ];
 
     let usedCodes = JSON.parse(localStorage.getItem('dolmaUsedCodes')) || [];
