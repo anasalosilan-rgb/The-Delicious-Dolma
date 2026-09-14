@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Delicious Dolma - اليوم الوطني 96</title>
+    <title>The Delicious Dolma - عروض اليوم الوطني 96</title>
     <style>
         :root {
             --national-green: #006C35;
@@ -15,7 +15,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); display: flex; justify-content: center; padding: 12px; padding-bottom: 90px; }
+        body { background: var(--bg-dark); color: var(--text-main); display: flex; justify-content: center; padding: 12px; padding-bottom: 270px; }
         .app { width: 100%; max-width: 420px; background: var(--card-bg); border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); border: 2px solid var(--national-gold); text-align: center; position: relative; }
         
         .promo-overlay {
@@ -47,9 +47,10 @@
         }
 
         .promo-card h2 { color: var(--national-gold); font-size: 22px; margin-bottom: 10px; }
-        .promo-card p { color: #e2e8f0; font-size: 14px; line-height: 1.6; margin-bottom: 18px; }
+        .promo-card p { color: #e2e8f0; font-size: 13.5px; line-height: 1.6; margin-bottom: 18px; }
         .promo-card .highlight { color: #86efac; font-weight: bold; }
-        
+        .promo-card .limit-tag { background: rgba(239, 68, 68, 0.2); border: 1px solid #ef4444; color: #fca5a5; padding: 4px 8px; border-radius: 8px; font-size: 12px; margin-top: 8px; display: inline-block; }
+
         .start-btn {
             background: linear-gradient(45deg, var(--national-green), var(--national-gold));
             color: #fff;
@@ -68,7 +69,6 @@
         .slogan { color: #86efac; font-size: 13px; font-weight: bold; margin-bottom: 12px; }
         .badge { background: var(--national-green); border: 1px solid var(--national-gold); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
 
-        /* تصميم العداد التنازلي */
         .timer-box {
             background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(0,0,0,0.5));
             border: 1px solid var(--national-gold);
@@ -76,35 +76,11 @@
             padding: 12px;
             margin-bottom: 15px;
         }
-        .timer-title {
-            font-size: 12px;
-            color: #86efac;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-        .timer-grid {
-            display: flex;
-            justify-content: center;
-            gap: 8px;
-        }
-        .timer-unit {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid var(--national-gold);
-            border-radius: 10px;
-            padding: 6px 10px;
-            min-width: 60px;
-        }
-        .timer-value {
-            font-size: 18px;
-            font-weight: bold;
-            color: var(--national-gold);
-            line-height: 1;
-        }
-        .timer-label {
-            font-size: 10px;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
+        .timer-title { font-size: 12px; color: #86efac; font-weight: bold; margin-bottom: 8px; }
+        .timer-grid { display: flex; justify-content: center; gap: 8px; }
+        .timer-unit { background: rgba(0, 0, 0, 0.6); border: 1px solid var(--national-gold); border-radius: 10px; padding: 6px 10px; min-width: 60px; }
+        .timer-value { font-size: 18px; font-weight: bold; color: var(--national-gold); line-height: 1; }
+        .timer-label { font-size: 10px; color: var(--text-muted); margin-top: 4px; }
 
         .audio-btn {
             background: rgba(0, 0, 0, 0.5);
@@ -166,99 +142,110 @@
             margin-bottom: 20px;
         }
 
-        .customizer-title {
-            color: var(--national-gold);
-            font-size: 15px;
-            font-weight: bold;
-            margin-bottom: 12px;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
+        .customizer-title { color: var(--national-gold); font-size: 15px; font-weight: bold; margin-bottom: 12px; display: flex; align-items: center; gap: 6px; }
         .custom-group { margin-bottom: 12px; }
+        .custom-label { font-size: 13px; color: #86efac; font-weight: bold; margin-bottom: 6px; display: block; }
+        .custom-select { width: 100%; padding: 10px; border-radius: 10px; background: #000; color: #fff; border: 1px solid var(--national-gold); outline: none; font-size: 13px; margin-bottom: 8px; }
 
-        .custom-label {
-            font-size: 13px;
-            color: #86efac;
-            font-weight: bold;
-            margin-bottom: 6px;
-            display: block;
-        }
+        .checkbox-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 6px; }
+        .checkbox-item { font-size: 11px; color: #e2e8f0; display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.05); padding: 6px 8px; border-radius: 8px; cursor: pointer; }
 
-        .custom-select {
-            width: 100%;
-            padding: 10px;
-            border-radius: 10px;
-            background: #000;
-            color: #fff;
-            border: 1px solid var(--national-gold);
-            outline: none;
-            font-size: 13px;
-            margin-bottom: 8px;
-        }
-
-        .checkbox-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 8px;
-            margin-top: 6px;
-        }
-
-        .checkbox-item {
-            font-size: 12px;
-            color: #e2e8f0;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255,255,255,0.05);
-            padding: 6px 8px;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-
-        .custom-add-btn {
-            width: 100%;
-            background: var(--national-gold);
-            color: #000;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 14px;
-            cursor: pointer;
-            margin-top: 10px;
-        }
+        .custom-add-btn { width: 100%; background: var(--national-gold); color: #000; border: none; padding: 12px; border-radius: 12px; font-weight: bold; font-size: 14px; cursor: pointer; margin-top: 10px; }
 
         /* شريط السلة */
-        .cart-bar {
+        .cart-drawer {
             position: fixed;
             bottom: 0; left: 0; right: 0;
             background: #000;
             border-top: 2px solid var(--national-gold);
-            padding: 12px 20px;
+            padding: 12px 16px;
+            z-index: 900;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
+        }
+
+        .free-shipping-container { margin-bottom: 10px; text-align: right; }
+        .free-shipping-text { font-size: 11px; color: #86efac; font-weight: bold; margin-bottom: 4px; }
+        .progress-bar-bg { background: rgba(255,255,255,0.1); height: 8px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(212,175,55,0.3); }
+        .progress-bar-fill { background: linear-gradient(90deg, var(--national-gold), #10b981); height: 100%; width: 0%; transition: width 0.4s ease; }
+
+        .delivery-details-box {
+            background: rgba(255,255,255,0.05);
+            border-radius: 10px;
+            padding: 8px;
+            margin-bottom: 8px;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr 1fr;
+            gap: 6px;
+        }
+
+        .delivery-input {
+            background: #05140b;
+            border: 1px solid var(--national-gold);
+            color: #fff;
+            padding: 6px;
+            border-radius: 6px;
+            font-size: 11px;
+            outline: none;
+            width: 100%;
+        }
+
+        .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+        .cart-title { color: var(--national-gold); font-size: 14px; font-weight: bold; }
+        
+        .cart-items-list {
+            max-height: 100px;
+            overflow-y: auto;
+            margin-bottom: 8px;
+            text-align: right;
+        }
+
+        .cart-item {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 900;
+            background: rgba(255,255,255,0.05);
+            padding: 6px 10px;
+            border-radius: 8px;
+            margin-bottom: 5px;
+            font-size: 12px;
         }
 
-        .cart-info { text-align: right; }
-        .cart-count { font-size: 12px; color: var(--text-muted); }
-        .cart-total { font-size: 16px; color: var(--national-gold); font-weight: bold; }
+        .cart-item-info { flex-grow: 1; padding-left: 8px; }
+        .cart-item-name { color: #fff; font-weight: bold; }
+        .cart-item-price { color: var(--national-gold); font-size: 11px; }
+
+        .cart-controls { display: flex; align-items: center; gap: 6px; }
+        .qty-btn { background: var(--national-green); color: #fff; border: none; width: 22px; height: 22px; border-radius: 6px; font-weight: bold; cursor: pointer; font-size: 12px; }
+        .delete-btn { background: #ef4444; color: #fff; border: none; padding: 3px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; }
+
+        .cart-action-bar { display: flex; justify-content: space-between; align-items: center; }
+        .cart-total { font-size: 15px; color: var(--national-gold); font-weight: bold; }
 
         .send-whatsapp-btn {
             background: #25D366;
             color: #fff;
             border: none;
-            padding: 10px 18px;
+            padding: 10px 16px;
             border-radius: 20px;
             font-weight: bold;
-            font-size: 14px;
+            font-size: 13px;
             cursor: pointer;
             display: flex;
             align-items: center;
             gap: 6px;
+        }
+
+        .share-btn {
+            background: linear-gradient(45deg, #1d4ed8, #3b82f6);
+            color: #fff;
+            border: 1px solid var(--national-gold);
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 15px;
         }
 
         .wheel-box { background: rgba(0,0,0,0.4); border-radius: 18px; padding: 15px; border: 1px solid var(--national-gold); margin-top: 20px; }
@@ -270,6 +257,31 @@
         #wheel { width: 100%; height: 100%; border-radius: 50%; border: 5px solid var(--national-gold); transition: transform 4s cubic-bezier(0.15, 0.99, 0.18, 1); background: conic-gradient(#006C35 0deg 72deg, #10b981 72deg 144deg, #006C35 144deg 216deg, #10b981 216deg 288deg, #006C35 288deg 360deg); }
         .arrow { position: absolute; top: -14px; left: 50%; transform: translateX(-50%); width: 0; height: 0; border-left: 12px solid transparent; border-right: 12px solid transparent; border-top: 22px solid var(--national-gold); z-index: 10; }
         #wheelResult { font-weight: bold; color: var(--national-gold); font-size: 15px; margin-top: 12px; min-height: 24px; line-height: 1.4; }
+
+        .developer-footer {
+            margin-top: 25px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(212, 175, 55, 0.4);
+            border-radius: 14px;
+            font-size: 12px;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .developer-link {
+            color: var(--national-gold);
+            font-weight: bold;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 4px;
+            transition: color 0.3s;
+        }
+
+        .developer-link:hover {
+            color: #86efac;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
@@ -280,11 +292,13 @@
         <h2>دام عزك يا وطن!</h2>
         <p>
             أهلاً بكم في <span class="highlight">The Delicious Dolma</span> ✨<br>
-            عروض اليوم الوطني متاحة لفترة محدودة من <b>الأحد 20/9</b> إلى <b>السبت 26/9</b>!
-            <br><br>
-            🎁 <b>ادخل كودك، أدِر العجلة، واحصل على قسيمة مجانية لطلبك القادم!</b>
+            نستقبل طلباتكم ابتداءً من <b>اليوم 🤍✨</b><br>
+            استقبال الطلبات مفتوح طوال الأسبوع من <b>الأحد إلى السبت</b>.<br>
+            <span class="highlight">💡 الأفضل والأولوية للحجز والتجهيز المبكر ابتداءً من اليوم الثلاثاء!</span>
         </p>
-        <button class="start-btn" id="startBtn">استكشف عروض اليوم الوطني 🇸🇦 🎶</button>
+        <div class="limit-tag">⚠️ الحد الأقصى: 4 طلبات لكل عميل لضمان الجودة</div>
+        <br><br>
+        <button class="start-btn" id="startBtn">احجز طلبك الآن 🇸🇦 🍃</button>
     </div>
 </div>
 
@@ -293,12 +307,12 @@
     <div class="header">
         <h1>The Delicious Dolma</h1>
         <div class="slogan">حامض، موزون، وطعم يطرب الخاطر ✨</div>
-        <div class="badge">💚 عروض اليوم الوطني 96 (20 - 26 سبتمبر) 🇸🇦</div>
+        <div class="badge">💚 استقبال الطلبات مفتوح (الحد الأقصى 4 طلبات لكل عميل)</div>
     </div>
 
     <!-- العداد التنازلي -->
     <div class="timer-box">
-        <div class="timer-title">⏳ ينتهي العرض خلال:</div>
+        <div class="timer-title">⏳ ينتهي عرض السلسلة وتغلق الطلبات خلال:</div>
         <div class="timer-grid" id="timerGrid">
             <div class="timer-unit"><div class="timer-value" id="days">00</div><div class="timer-label">يوم</div></div>
             <div class="timer-unit"><div class="timer-value" id="hours">00</div><div class="timer-label">ساعة</div></div>
@@ -410,7 +424,7 @@
     <div class="product-card">
         <div class="product-info">
             <h4>طبق الفتة (الكبير)</h4>
-            <p>تكفي وتزيد أحبابك</p>
+            <p>تكفي وتزيد أحبابك (تكفي لـ 8-10 صحون صغار)</p>
             <div class="price-box">
                 <span class="price">40 ر.س</span>
                 <span class="old-price">45 ر.س</span>
@@ -422,49 +436,44 @@
     <!-- قسم صمّم طبقك المفضل -->
     <div class="section-title">✨ صمّم طبقك الخاص 👌</div>
     <div class="customizer-box">
-        <div class="customizer-title">🎨 اختر الصنف والعدد والتزيين المفضّل:</div>
+        <div class="customizer-title">🎨 اختر الصنف والعدد والتغطيات:</div>
 
         <div class="custom-group">
-            <label class="custom-label">1️⃣ اختر نوع الطبق الأساسي:</label>
-            <select id="customType" class="custom-select">
-                <option value="ورق عنب 🍇">ورق عنب 🍇</option>
-                <option value="ملفوف 🥬">ملفوف 🥬</option>
-                <option value="فتة 🍲">فتة 🍲</option>
-                <option value="ميكس مشكل 🍽️">ميكس مشكل 🍽️</option>
+            <label class="custom-label">1️⃣ اختر نوع الطبق الأساسي والحجم:</label>
+            <select id="customBaseDish" class="custom-select">
+                <option value="ورق عنب (40 حبة)" data-price="50">ورق عنب - 40 حبة (50 ر.س)</option>
+                <option value="ورق عنب (60 حبة)" data-price="75">ورق عنب - 60 حبة (75 ر.س)</option>
+                <option value="ورق عنب (80 حبة)" data-price="96">ورق عنب - 80 حبة (96 ر.س)</option>
+                <option value="ملفوف (40 حبة)" data-price="60">ملفوف - 40 حبة (60 ر.س)</option>
+                <option value="ملفوف (60 حبة)" data-price="90">ملفوف - 60 حبة (90 ر.س)</option>
+                <option value="ملفوف (80 حبة)" data-price="120">ملفوف - 80 حبة (120 ر.س)</option>
+                <option value="طبق فتة (وسط)" data-price="30">طبق فتة وسط (30 ر.س)</option>
+                <option value="طبق فتة (كبير)" data-price="40">طبق فتة كبير (40 ر.س)</option>
             </select>
         </div>
 
         <div class="custom-group">
-            <label class="custom-label">2️⃣ اختر الحجم والكمية:</label>
-            <select id="customSize" class="custom-select">
-                <option value="40 حبة / طبق وسط">40 حبة / طبق وسط</option>
-                <option value="60 حبة / طبق كبير">60 حبة / طبق كبير</option>
-                <option value="80 حبة / طبق عائلي">80 حبة / طبق عائلي</option>
-            </select>
-        </div>
-
-        <div class="custom-group">
-            <label class="custom-label">3️⃣ اختر التقديم والتغليف:</label>
+            <label class="custom-label">2️⃣ اختر طريقة التقديم والتغليف:</label>
             <select id="customPackage" class="custom-select">
-                <option value="صحن خاص فاخر 🍽️">صحن خاص فاخر 🍽️</option>
-                <option value="البوكس المعتاد 📦">البوكس المعتاد 📦</option>
-                <option value="توزيعات أفراد 🎁">توزيعات أفراد 🎁</option>
+                <option value="البوكس المعتاد" data-price="0">البوكس المعتاد (مجاناً)</option>
+                <option value="صحن خاص فاخر" data-price="15">صحن خاص فاخر (+15 ر.س)</option>
+                <option value="توزيعات أفراد صحون صغيرة (8-10 صحون)" data-price="10">توزيعات أفراد صحون صغيرة (+10 ر.س)</option>
             </select>
         </div>
 
         <div class="custom-group">
-            <label class="custom-label">4️⃣ اختر التزيين والإضافات (لـ الفتة، الورق عنب، والملفوف):</label>
+            <label class="custom-label">3️⃣ اختر إضافات التزيين والتغطيات (+1 ر.س لكل إضافة):</label>
             <div class="checkbox-grid">
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="دبس الرمان المركّز 🍇" checked> دبس الرمان 🍇</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="الخبز المحمص المقرمش 🍞" checked> خبز محمص 🍞</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="صوص الروب والنعناع 🥣"> صوص روب ونعناع 🥣</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="حبات الرمان الطازجة 🔴"> حبات رمان 🔴</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="شرائح الليمون 🍋"> شرائح ليمون 🍋</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="بصل مقلي وشبس 🧅"> بصل مقلي وشبس 🧅</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="دبس الرمان" data-price="1"> دبس الرمان (+1 ر.س)</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="خبز محمص" data-price="1"> خبز محمص (+1 ر.س)</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="صوص الروب والنعناع" data-price="1"> صوص روب ونعناع (+1 ر.س)</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="حبات الرمان الطازجة" data-price="1"> حبات رمان (+1 ر.س)</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="شرائح الليمون" data-price="1"> شرائح ليمون (+1 ر.س)</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="بصل مقلي وشبس" data-price="1"> بصل مقلي وشبس (+1 ر.س)</label>
             </div>
         </div>
 
-        <button class="custom-add-btn" onclick="addCustomToCart()">إضافة الطبق المخصص للسلة 🛒</button>
+        <button class="custom-add-btn" onclick="addCustomToCart()">حساب وإضافة الطبق المخصص للسلة 🛒</button>
     </div>
 
     <!-- عجلة المكافآت -->
@@ -481,15 +490,74 @@
         </div>
         <div id="wheelResult"></div>
     </div>
+
+    <!-- زر مشاركة العرض -->
+    <button class="share-btn" onclick="shareOffer()">📢 شارك هذا العرض المباشر مع أصدقائك عبر الواتساب 📲</button>
+
+    <!-- شريط حقوق المطور التسويقي -->
+    <div class="developer-footer">
+        💻 تم إعداد وتطوير هذه الصفحة بواسطة <b>أنس العسيلان</b>
+        <br>
+        <a href="http://wa.me/0553627855" target="_blank" class="developer-link">
+            📲 لتصميم وتطوير صفحة متجر لعملك (اضغط للتواصل)
+        </a>
+    </div>
 </div>
 
-<!-- شريط السلة الثابت -->
-<div class="cart-bar">
-    <div class="cart-info">
-        <div class="cart-count" id="cartCount">عدد الأصناف: 0</div>
-        <div class="cart-total" id="cartTotal">الإجمالي: 0 ر.س</div>
+<!-- شريط السلة التفاعلي المتقدم -->
+<div class="cart-drawer">
+    <!-- شريط تقدم التوصيل المجاني (150 ريال) -->
+    <div class="free-shipping-container">
+        <div class="free-shipping-text" id="shippingText">أضف بـ 150.00 ر.س للحصول على توصيل مجاني! 🚚</div>
+        <div class="progress-bar-bg">
+            <div class="progress-bar-fill" id="shippingProgress"></div>
+        </div>
     </div>
-    <button class="send-whatsapp-btn" onclick="checkoutWhatsApp()">إرسال السلة للواتساب 📲</button>
+
+    <!-- تفاصيل التوصيل والاستلام والمواعيد -->
+    <div class="delivery-details-box">
+        <select id="deliveryType" class="delivery-input">
+            <option value="توصيل للمنزل">🚗 توصيل للمنزل</option>
+            <option value="استلام من الفرع">🏪 استلام من الفرع</option>
+        </select>
+        <select id="deliveryDay" class="delivery-input">
+            <optgroup label="🌟 الأفضل (تجهيز وحجز مبكر)">
+                <option value="الثلاثاء (تجهيز مبكر - مفضّل)">الثلاثاء (تجهيز مبكر)</option>
+                <option value="الأربعاء (تجهيز مبكر)">الأربعاء (تجهيز مبكر)</option>
+                <option value="الخميس (تجهيز مبكر)">الخميس (تجهيز مبكر)</option>
+                <option value="الجمعة (تجهيز مبكر)">الجمعة (تجهيز مبكر)</option>
+                <option value="السبت (تجهيز مبكر)">السبت (تجهيز مبكر)</option>
+            </optgroup>
+
+            <optgroup label="📅 الأيام المتاحة للاستلام والتوصيل">
+                <option value="الأحد">الأحد</option>
+                <option value="الإثنين">الإثنين</option>
+                <option value="الثلاثاء">الثلاثاء</option>
+                <option value="الأربعاء">الأربعاء</option>
+                <option value="الخميس">الخميس</option>
+                <option value="الجمعة">الجمعة</option>
+                <option value="السبت">السبت</option>
+            </optgroup>
+        </select>
+        <select id="deliveryTime" class="delivery-input">
+            <option value="الفترة المسائية (4-8 مساءً)">مساءً (4-8)</option>
+            <option value="الفترة الليلية (8-12 ليلاً)">ليلاً (8-12)</option>
+        </select>
+    </div>
+
+    <div class="cart-header">
+        <div class="cart-title">🛒 السلة المباشرة</div>
+        <span id="cartCountBadge" style="font-size:11px; color:var(--text-muted);">0 / 4 أصناف</span>
+    </div>
+
+    <div class="cart-items-list" id="cartItemsList">
+        <div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>
+    </div>
+
+    <div class="cart-action-bar">
+        <div class="cart-total" id="cartTotal">الإجمالي: 0 ر.س</div>
+        <button class="send-whatsapp-btn" onclick="checkoutWhatsApp()">إرسال الطلب للواتساب 📲</button>
+    </div>
 </div>
 
 <audio id="national-anthem" loop preload="auto" playsinline>
@@ -500,6 +568,8 @@
 <script>
   var audio = document.getElementById('national-anthem');
   let cart = [];
+  const freeShippingThreshold = 150;
+  const maxOrderLimit = 4; // الحد الأقصى 4 طلبات لكل عميل
 
   document.getElementById('startBtn').addEventListener('click', function() {
       document.getElementById('promoModal').style.display = 'none';
@@ -522,7 +592,7 @@
       }
   }
 
-  // برمجة العداد التنازلي - ينتهي يوم السبت 26 سبتمبر الساعة 11:59:59 مساءً
+  // العداد التنازلي
   const endDate = new Date('September 26, 2026 23:59:59').getTime();
 
   const timerInterval = setInterval(function() {
@@ -531,7 +601,7 @@
 
       if (distance < 0) {
           clearInterval(timerInterval);
-          document.getElementById('timerGrid').innerHTML = '<div style="color:#ef4444; font-weight:bold; font-size:14px; padding:6px;">🚨 انتهت عروض اليوم الوطني 96، انتظرونا في العروض القادمة!</div>';
+          document.getElementById('timerGrid').innerHTML = '<div style="color:#ef4444; font-weight:bold; font-size:14px; padding:6px;">🚨 انتهت فترة العروض!</div>';
           return;
       }
 
@@ -546,33 +616,131 @@
       document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
   }, 1000);
 
+  function getTotalItemsCount() {
+      return cart.reduce((sum, item) => sum + item.qty, 0);
+  }
+
   function addToCart(name, price) {
-      cart.push({ name: name, price: price });
+      if (getTotalItemsCount() >= maxOrderLimit) {
+          alert('⚠️ تنبيه: الحد الأقصى المسموح به هو 4 أطباق/طلبات فقط لكل عميل لضمان أعلى جودة وإتقان!');
+          return;
+      }
+
+      const existingIndex = cart.findIndex(item => item.name === name);
+      if(existingIndex > -1) {
+          cart[existingIndex].qty += 1;
+      } else {
+          cart.push({ name: name, price: price, qty: 1 });
+      }
       updateCartUI();
   }
 
   function addCustomToCart() {
-      const type = document.getElementById('customType').value;
-      const size = document.getElementById('customSize').value;
-      const packaging = document.getElementById('customPackage').value;
-      
-      const selectedToppings = [];
+      if (getTotalItemsCount() >= maxOrderLimit) {
+          alert('⚠️ تنبيه: الحد الأقصى المسموح به هو 4 أطباق/طلبات فقط لكل عميل!');
+          return;
+      }
+
+      const baseDishSelect = document.getElementById('customBaseDish');
+      const baseDishName = baseDishSelect.value;
+      const baseDishPrice = parseFloat(baseDishSelect.options[baseDishSelect.selectedIndex].getAttribute('data-price'));
+
+      const packageSelect = document.getElementById('customPackage');
+      const packageName = packageSelect.value;
+      const packagePrice = parseFloat(packageSelect.options[packageSelect.selectedIndex].getAttribute('data-price'));
+
+      let toppingNames = [];
+      let toppingsTotalPrice = 0;
+
       const checkboxes = document.querySelectorAll('.topping-check:checked');
-      checkboxes.forEach((cb) => selectedToppings.push(cb.value));
+      checkboxes.forEach((cb) => {
+          toppingNames.push(cb.value);
+          toppingsTotalPrice += parseFloat(cb.getAttribute('data-price'));
+      });
 
-      let toppingsText = selectedToppings.length > 0 ? selectedToppings.join(' + ') : 'بدون إضافات خاصة';
+      let totalCustomPrice = baseDishPrice + packagePrice + toppingsTotalPrice;
+      let details = `${baseDishName} | تغليف: ${packageName}`;
+      if(toppingNames.length > 0) {
+          details += ` | إضافات: ${toppingNames.join(', ')}`;
+      }
 
-      let fullName = `طبق مخصص [${type}] - ${size} (${packaging}) - الإضافات: ${toppingsText}`;
-      
-      cart.push({ name: fullName, price: 0 });
+      cart.push({ name: details, price: totalCustomPrice, qty: 1 });
       updateCartUI();
-      alert('تمت إضافة الطبق المخصص للسلة بنجاح!');
+      alert(`تمت إضافة الطبق المخصص بنجاح!\nالإجمالي: ${totalCustomPrice} ريال`);
+  }
+
+  function changeQty(index, delta) {
+      if (delta > 0 && getTotalItemsCount() >= maxOrderLimit) {
+          alert('⚠️ عذراً، لا يمكن تجاوز الحد الأقصى (4 طلبات) لكل عميل!');
+          return;
+      }
+
+      cart[index].qty += delta;
+      if (cart[index].qty <= 0) {
+          cart.splice(index, 1);
+      }
+      updateCartUI();
+  }
+
+  function removeItem(index) {
+      cart.splice(index, 1);
+      updateCartUI();
   }
 
   function updateCartUI() {
-      document.getElementById('cartCount').innerText = `عدد الأصناف: ${cart.length}`;
-      let total = cart.reduce((sum, item) => sum + item.price, 0);
-      document.getElementById('cartTotal').innerText = `الإجمالي: ${total > 0 ? total + ' ر.س' : 'يحدد بالواتساب'}`;
+      const cartList = document.getElementById('cartItemsList');
+      const cartCountBadge = document.getElementById('cartCountBadge');
+      const cartTotal = document.getElementById('cartTotal');
+      const shippingText = document.getElementById('shippingText');
+      const shippingProgress = document.getElementById('shippingProgress');
+
+      let currentTotalQty = getTotalItemsCount();
+
+      if (cart.length === 0) {
+          cartList.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
+          cartCountBadge.innerText = `0 / ${maxOrderLimit} أصناف`;
+          cartTotal.innerText = 'الإجمالي: 0 ر.س';
+          shippingText.innerText = `أضف بـ ${freeShippingThreshold}.00 ر.س للحصول على توصيل مجاني! 🚚`;
+          shippingProgress.style.width = '0%';
+          return;
+      }
+
+      let html = '';
+      let grandTotal = 0;
+
+      cart.forEach((item, index) => {
+          let itemTotal = item.price * item.qty;
+          grandTotal += itemTotal;
+
+          html += `
+              <div class="cart-item">
+                  <div class="cart-item-info">
+                      <div class="cart-item-name">${item.name}</div>
+                      <div class="cart-item-price">${item.price} ر.س × ${item.qty} = ${itemTotal} ر.س</div>
+                  </div>
+                  <div class="cart-controls">
+                      <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                      <span style="font-size:12px; font-weight:bold; color:#fff;">${item.qty}</span>
+                      <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                      <button class="delete-btn" onclick="removeItem(${index})">حذف 🗑️</button>
+                  </div>
+              </div>
+          `;
+      });
+
+      cartList.innerHTML = html;
+      cartCountBadge.innerText = `${currentTotalQty} / ${maxOrderLimit} أصناف`;
+      cartTotal.innerText = `الإجمالي: ${grandTotal} ر.س`;
+
+      if(grandTotal >= freeShippingThreshold) {
+          shippingText.innerHTML = '🎉 **مبروك! طلبك يستحق توصيل مجاني!** 🚚';
+          shippingProgress.style.width = '100%';
+      } else {
+          let diff = freeShippingThreshold - grandTotal;
+          let percent = (grandTotal / freeShippingThreshold) * 100;
+          shippingText.innerText = `أضف بـ ${diff.toFixed(2)} ر.س أخرى للحصول على توصيل مجاني! 🚚`;
+          shippingProgress.style.width = `${percent}%`;
+      }
   }
 
   function checkoutWhatsApp() {
@@ -581,20 +749,38 @@
           return;
       }
 
-      let message = `أهلاً، أريد طلب الأطباق التالية من عروض اليوم الوطني 🇸🇦:\n\n`;
-      let total = 0;
+      const deliveryType = document.getElementById('deliveryType').value;
+      const deliveryDay = document.getElementById('deliveryDay').value;
+      const deliveryTime = document.getElementById('deliveryTime').value;
+
+      let message = `أهلاً، أريد حجز طلب من عروض The Delicious Dolma 🇸🇦:\n\n`;
+      let grandTotal = 0;
 
       cart.forEach((item, index) => {
-          message += `${index + 1}. ${item.name} ${item.price > 0 ? '(' + item.price + ' ريال)' : ''}\n`;
-          total += item.price;
+          let itemTotal = item.price * item.qty;
+          grandTotal += itemTotal;
+          message += `${index + 1}. ${item.name}\n   الكمية: ${item.qty} | السعر: ${itemTotal} ريال\n`;
       });
 
-      if(total > 0) {
-          message += `\n💰 الإجمالي التقريبي: ${total} ريال سعودي`;
+      message += `\n📍 **تفاصيل التنسيق والموعد:**\n`;
+      message += `- طريقة الاستلام: ${deliveryType}\n`;
+      message += `- اليوم المختار: ${deliveryDay}\n`;
+      message += `- الفترة: ${deliveryTime}\n`;
+
+      if(grandTotal >= freeShippingThreshold) {
+          message += `\n🎁 **حالة التوصيل:** مجاني (تجاوز 150 ريال)`;
       }
+
+      message += `\n💰 **الإجمالي النهائي:** ${grandTotal} ريال سعودي`;
 
       let encodedUrl = `https://api.whatsapp.com/send/?phone=966559127217&text=${encodeURIComponent(message)}`;
       window.open(encodedUrl, '_blank');
+  }
+
+  function shareOffer() {
+      let shareMsg = `🔥 نستقبل طلبات اليوم الوطني 96! 🇸🇦💚\n\nالطلب مفتوح طوال الأسبوع (من الأحد إلى السبت) مع أفضلية الحجز المبكر من اليوم الثلاثاء ✨\n⚠️ ملاحظة: الحد الأقصى 4 طلبات لكل عميل لضمان الجودة 🤤🍃\n\nتصفّح العروض واطلب مباشرة من هنا:`;
+      let whatsappShareUrl = `https://api.whatsapp.com/send/?text=${encodeURIComponent(shareMsg + '\n' + window.location.href)}`;
+      window.open(whatsappShareUrl, '_blank');
   }
 
   // الأكواد المعتمدة للعجلة
