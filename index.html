@@ -15,7 +15,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); display: flex; justify-content: center; padding: 12px; }
+        body { background: var(--bg-dark); color: var(--text-main); display: flex; justify-content: center; padding: 12px; padding-bottom: 90px; }
         .app { width: 100%; max-width: 420px; background: var(--card-bg); border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); border: 2px solid var(--national-gold); text-align: center; position: relative; }
         
         .promo-overlay {
@@ -68,6 +68,44 @@
         .slogan { color: #86efac; font-size: 13px; font-weight: bold; margin-bottom: 12px; }
         .badge { background: var(--national-green); border: 1px solid var(--national-gold); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
 
+        /* تصميم العداد التنازلي */
+        .timer-box {
+            background: linear-gradient(135deg, rgba(212,175,55,0.1), rgba(0,0,0,0.5));
+            border: 1px solid var(--national-gold);
+            border-radius: 16px;
+            padding: 12px;
+            margin-bottom: 15px;
+        }
+        .timer-title {
+            font-size: 12px;
+            color: #86efac;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        .timer-grid {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+        }
+        .timer-unit {
+            background: rgba(0, 0, 0, 0.6);
+            border: 1px solid var(--national-gold);
+            border-radius: 10px;
+            padding: 6px 10px;
+            min-width: 60px;
+        }
+        .timer-value {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--national-gold);
+            line-height: 1;
+        }
+        .timer-label {
+            font-size: 10px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
         .audio-btn {
             background: rgba(0, 0, 0, 0.5);
             color: var(--national-gold);
@@ -106,8 +144,19 @@
         .price { font-weight: bold; color: var(--national-gold); font-size: 16px; }
         .old-price { text-decoration: line-through; color: #ef4444; font-size: 13px; }
 
-        .whatsapp-btn { background: #25D366; color: #fff; text-decoration: none; padding: 8px 12px; border-radius: 10px; font-weight: bold; font-size: 12px; display: inline-flex; align-items: center; gap: 4px; border: none; cursor: pointer; flex-shrink: 0; }
+        .add-cart-btn { 
+            background: linear-gradient(45deg, var(--national-green), #10b981); 
+            color: #fff; 
+            padding: 8px 12px; 
+            border-radius: 10px; 
+            font-weight: bold; 
+            font-size: 12px; 
+            border: 1px solid var(--national-gold); 
+            cursor: pointer; 
+            flex-shrink: 0; 
+        }
 
+        /* تخصيص الطبق */
         .customizer-box {
             background: rgba(0, 0, 0, 0.4);
             border-radius: 18px;
@@ -127,9 +176,7 @@
             gap: 6px;
         }
 
-        .custom-group {
-            margin-bottom: 12px;
-        }
+        .custom-group { margin-bottom: 12px; }
 
         .custom-label {
             font-size: 13px;
@@ -170,10 +217,10 @@
             cursor: pointer;
         }
 
-        .custom-order-btn {
+        .custom-add-btn {
             width: 100%;
-            background: #25D366;
-            color: #fff;
+            background: var(--national-gold);
+            color: #000;
             border: none;
             padding: 12px;
             border-radius: 12px;
@@ -181,8 +228,35 @@
             font-size: 14px;
             cursor: pointer;
             margin-top: 10px;
+        }
+
+        /* شريط السلة */
+        .cart-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            background: #000;
+            border-top: 2px solid var(--national-gold);
+            padding: 12px 20px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 900;
+        }
+
+        .cart-info { text-align: right; }
+        .cart-count { font-size: 12px; color: var(--text-muted); }
+        .cart-total { font-size: 16px; color: var(--national-gold); font-weight: bold; }
+
+        .send-whatsapp-btn {
+            background: #25D366;
+            color: #fff;
+            border: none;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
             align-items: center;
             gap: 6px;
         }
@@ -206,7 +280,7 @@
         <h2>دام عزك يا وطن!</h2>
         <p>
             أهلاً بكم في <span class="highlight">The Delicious Dolma</span> ✨<br>
-            بمناسبة اليوم الوطني السعودي 96، نسعد بتقديم أشهى عروض ورق العنب والملفوف والفتة! 
+            عروض اليوم الوطني متاحة لفترة محدودة من <b>الأحد 20/9</b> إلى <b>السبت 26/9</b>!
             <br><br>
             🎁 <b>ادخل كودك، أدِر العجلة، واحصل على قسيمة مجانية لطلبك القادم!</b>
         </p>
@@ -219,7 +293,18 @@
     <div class="header">
         <h1>The Delicious Dolma</h1>
         <div class="slogan">حامض، موزون، وطعم يطرب الخاطر ✨</div>
-        <div class="badge">💚 عروض اليوم الوطني 96 🇸🇦</div>
+        <div class="badge">💚 عروض اليوم الوطني 96 (20 - 26 سبتمبر) 🇸🇦</div>
+    </div>
+
+    <!-- العداد التنازلي -->
+    <div class="timer-box">
+        <div class="timer-title">⏳ ينتهي العرض خلال:</div>
+        <div class="timer-grid" id="timerGrid">
+            <div class="timer-unit"><div class="timer-value" id="days">00</div><div class="timer-label">يوم</div></div>
+            <div class="timer-unit"><div class="timer-value" id="hours">00</div><div class="timer-label">ساعة</div></div>
+            <div class="timer-unit"><div class="timer-value" id="minutes">00</div><div class="timer-label">دقيقة</div></div>
+            <div class="timer-unit"><div class="timer-value" id="seconds">00</div><div class="timer-label">ثانية</div></div>
+        </div>
     </div>
 
     <button class="audio-btn" id="toggleAudioBtn" onclick="toggleAudio()">🔊 تشغيل / إيقاف النشيد 🇸🇦</button>
@@ -235,7 +320,7 @@
                 <span class="old-price">110 ر.س</span>
             </div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20عرض%20الميكس%20الملكي%20(40%20ملفوف%20%2B%2040%20ورق%20عنب)%20بسعر%2096%20ريال" class="whatsapp-btn" target="_blank">طلب العرض 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('عرض الميكس الملكي (40 ملفوف + 40 ورق عنب)', 96)">أضف للسلة 🛒</button>
     </div>
 
     <!-- عروض ورق العنب -->
@@ -245,33 +330,27 @@
         <div class="product-info">
             <h4>باقة 40 حبة</h4>
             <p>ورق عنب حامض وموزون</p>
-            <div class="price-box">
-                <span class="price">50 ر.س</span>
-            </div>
+            <div class="price-box"><span class="price">50 ر.س</span></div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20باقة%2040%20حبة%20ورق%20عنب%20(50%20ريال)" class="whatsapp-btn" target="_blank">طلب واتساب 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('باقة 40 حبة ورق عنب', 50)">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
         <div class="product-info">
             <h4>باقة 60 حبة</h4>
             <p>الأكثر طلباً للجمعات</p>
-            <div class="price-box">
-                <span class="price">75 ر.س</span>
-            </div>
+            <div class="price-box"><span class="price">75 ر.س</span></div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20باقة%2060%20حبة%20ورق%20عنب%20(75%20ريال)" class="whatsapp-btn" target="_blank">طلب واتساب 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('باقة 60 حبة ورق عنب', 75)">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
         <div class="product-info">
             <h4>باقة 80 حبة</h4>
             <p>باقة العزائم الفاخرة</p>
-            <div class="price-box">
-                <span class="price">96 ر.س</span>
-            </div>
+            <div class="price-box"><span class="price">96 ر.س</span></div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20باقة%2080%20حبة%20ورق%20عنب%20(96%20ريال)" class="whatsapp-btn" target="_blank">طلب واتساب 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('باقة 80 حبة ورق عنب', 96)">أضف للسلة 🛒</button>
     </div>
 
     <!-- عروض طبق الملفوف -->
@@ -286,7 +365,7 @@
                 <span class="old-price">70 ر.س</span>
             </div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20طبق%20ملفوف%2040%20حبة%20بسعر%2060%20ريال" class="whatsapp-btn" target="_blank">طلب واتساب 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 40 حبة', 60)">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
@@ -298,7 +377,7 @@
                 <span class="old-price">100 ر.س</span>
             </div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20طبق%20ملفوف%2060%20حبة%20بسعر%2090%20ريال" class="whatsapp-btn" target="_blank">طلب واتساب 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 60 حبة', 90)">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
@@ -310,7 +389,7 @@
                 <span class="old-price">130 ر.س</span>
             </div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20طبق%20ملفوف%2080%20حبة%20بسعر%20120%20ريال" class="whatsapp-btn" target="_blank">طلب واتساب 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 80 حبة', 120)">أضف للسلة 🛒</button>
     </div>
 
     <!-- عروض طبق الفتة -->
@@ -325,7 +404,7 @@
                 <span class="old-price">35 ر.س</span>
             </div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20طبق%20فتة%20وسط%20بسعر%2030%20ريال" class="whatsapp-btn" target="_blank">طلب واتساب 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('طبق فتة وسط', 30)">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
@@ -337,25 +416,35 @@
                 <span class="old-price">45 ر.س</span>
             </div>
         </div>
-        <a href="https://api.whatsapp.com/send/?phone=966559127217&text=أهلاً،%20أريد%20طلب%20طبق%20فتة%20كبير%20بسعر%2040%20ريال" class="whatsapp-btn" target="_blank">طلب واتساب 📲</a>
+        <button class="add-cart-btn" onclick="addToCart('طبق فتة كبير', 40)">أضف للسلة 🛒</button>
     </div>
 
-    <!-- قسم زين طبقك باختيارك -->
-    <div class="section-title">✨ زين طبقك باختيارك 👌</div>
+    <!-- قسم صمّم طبقك المفضل -->
+    <div class="section-title">✨ صمّم طبقك الخاص 👌</div>
     <div class="customizer-box">
-        <div class="customizer-title">🎨 صمّم طبقك الخاص واطلبه مباشرة:</div>
+        <div class="customizer-title">🎨 اختر الصنف والعدد والتزيين المفضّل:</div>
 
         <div class="custom-group">
-            <label class="custom-label">1️⃣ اختر الحجم والكمية:</label>
-            <select id="customSize" class="custom-select">
-                <option value="40 حبة">40 حبة</option>
-                <option value="60 حبة">60 حبة</option>
-                <option value="80 حبة">80 حبة</option>
+            <label class="custom-label">1️⃣ اختر نوع الطبق الأساسي:</label>
+            <select id="customType" class="custom-select">
+                <option value="ورق عنب 🍇">ورق عنب 🍇</option>
+                <option value="ملفوف 🥬">ملفوف 🥬</option>
+                <option value="فتة 🍲">فتة 🍲</option>
+                <option value="ميكس مشكل 🍽️">ميكس مشكل 🍽️</option>
             </select>
         </div>
 
         <div class="custom-group">
-            <label class="custom-label">2️⃣ اختر شكل التقديم والتغليف:</label>
+            <label class="custom-label">2️⃣ اختر الحجم والكمية:</label>
+            <select id="customSize" class="custom-select">
+                <option value="40 حبة / طبق وسط">40 حبة / طبق وسط</option>
+                <option value="60 حبة / طبق كبير">60 حبة / طبق كبير</option>
+                <option value="80 حبة / طبق عائلي">80 حبة / طبق عائلي</option>
+            </select>
+        </div>
+
+        <div class="custom-group">
+            <label class="custom-label">3️⃣ اختر التقديم والتغليف:</label>
             <select id="customPackage" class="custom-select">
                 <option value="صحن خاص فاخر 🍽️">صحن خاص فاخر 🍽️</option>
                 <option value="البوكس المعتاد 📦">البوكس المعتاد 📦</option>
@@ -364,7 +453,7 @@
         </div>
 
         <div class="custom-group">
-            <label class="custom-label">3️⃣ حدد الإضافات والتزيين:</label>
+            <label class="custom-label">4️⃣ اختر التزيين والإضافات (لـ الفتة، الورق عنب، والملفوف):</label>
             <div class="checkbox-grid">
                 <label class="checkbox-item"><input type="checkbox" class="topping-check" value="دبس الرمان المركّز 🍇" checked> دبس الرمان 🍇</label>
                 <label class="checkbox-item"><input type="checkbox" class="topping-check" value="الخبز المحمص المقرمش 🍞" checked> خبز محمص 🍞</label>
@@ -375,7 +464,7 @@
             </div>
         </div>
 
-        <button class="custom-order-btn" onclick="sendCustomOrder()">إرسال الطلب المخصص للواتساب 📲</button>
+        <button class="custom-add-btn" onclick="addCustomToCart()">إضافة الطبق المخصص للسلة 🛒</button>
     </div>
 
     <!-- عجلة المكافآت -->
@@ -394,6 +483,15 @@
     </div>
 </div>
 
+<!-- شريط السلة الثابت -->
+<div class="cart-bar">
+    <div class="cart-info">
+        <div class="cart-count" id="cartCount">عدد الأصناف: 0</div>
+        <div class="cart-total" id="cartTotal">الإجمالي: 0 ر.س</div>
+    </div>
+    <button class="send-whatsapp-btn" onclick="checkoutWhatsApp()">إرسال السلة للواتساب 📲</button>
+</div>
+
 <audio id="national-anthem" loop preload="auto" playsinline>
   <source src="v14044g50000cro815fog65ovr796p8g.mov" type="video/quicktime">
   <source src="v14044g50000cro815fog65ovr796p8g.mov" type="audio/mp4">
@@ -401,6 +499,7 @@
 
 <script>
   var audio = document.getElementById('national-anthem');
+  let cart = [];
 
   document.getElementById('startBtn').addEventListener('click', function() {
       document.getElementById('promoModal').style.display = 'none';
@@ -423,7 +522,37 @@
       }
   }
 
-  function sendCustomOrder() {
+  // برمجة العداد التنازلي - ينتهي يوم السبت 26 سبتمبر الساعة 11:59:59 مساءً
+  const endDate = new Date('September 26, 2026 23:59:59').getTime();
+
+  const timerInterval = setInterval(function() {
+      const now = new Date().getTime();
+      const distance = endDate - now;
+
+      if (distance < 0) {
+          clearInterval(timerInterval);
+          document.getElementById('timerGrid').innerHTML = '<div style="color:#ef4444; font-weight:bold; font-size:14px; padding:6px;">🚨 انتهت عروض اليوم الوطني 96، انتظرونا في العروض القادمة!</div>';
+          return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById('days').innerText = days < 10 ? '0' + days : days;
+      document.getElementById('hours').innerText = hours < 10 ? '0' + hours : hours;
+      document.getElementById('minutes').innerText = minutes < 10 ? '0' + minutes : minutes;
+      document.getElementById('seconds').innerText = seconds < 10 ? '0' + seconds : seconds;
+  }, 1000);
+
+  function addToCart(name, price) {
+      cart.push({ name: name, price: price });
+      updateCartUI();
+  }
+
+  function addCustomToCart() {
+      const type = document.getElementById('customType').value;
       const size = document.getElementById('customSize').value;
       const packaging = document.getElementById('customPackage').value;
       
@@ -431,20 +560,49 @@
       const checkboxes = document.querySelectorAll('.topping-check:checked');
       checkboxes.forEach((cb) => selectedToppings.push(cb.value));
 
-      let toppingsText = selectedToppings.length > 0 ? selectedToppings.join(' ، ') : 'بدون إضافات خاصة';
+      let toppingsText = selectedToppings.length > 0 ? selectedToppings.join(' + ') : 'بدون إضافات خاصة';
 
-      let message = `أهلاً، أريد طلب طبق مخصص بالتجهيز التالي:\n` +
-                    `▫️ الكمية: ${size}\n` +
-                    `▫️ الشكل والتغليف: ${packaging}\n` +
-                    `▫️ الإضافات والتزيين: ${toppingsText}`;
+      let fullName = `طبق مخصص [${type}] - ${size} (${packaging}) - الإضافات: ${toppingsText}`;
+      
+      cart.push({ name: fullName, price: 0 });
+      updateCartUI();
+      alert('تمت إضافة الطبق المخصص للسلة بنجاح!');
+  }
+
+  function updateCartUI() {
+      document.getElementById('cartCount').innerText = `عدد الأصناف: ${cart.length}`;
+      let total = cart.reduce((sum, item) => sum + item.price, 0);
+      document.getElementById('cartTotal').innerText = `الإجمالي: ${total > 0 ? total + ' ر.س' : 'يحدد بالواتساب'}`;
+  }
+
+  function checkoutWhatsApp() {
+      if(cart.length === 0) {
+          alert('السلة فارغة! يرجى إضافة عروض أو أطباق أولاً.');
+          return;
+      }
+
+      let message = `أهلاً، أريد طلب الأطباق التالية من عروض اليوم الوطني 🇸🇦:\n\n`;
+      let total = 0;
+
+      cart.forEach((item, index) => {
+          message += `${index + 1}. ${item.name} ${item.price > 0 ? '(' + item.price + ' ريال)' : ''}\n`;
+          total += item.price;
+      });
+
+      if(total > 0) {
+          message += `\n💰 الإجمالي التقريبي: ${total} ريال سعودي`;
+      }
 
       let encodedUrl = `https://api.whatsapp.com/send/?phone=966559127217&text=${encodeURIComponent(message)}`;
       window.open(encodedUrl, '_blank');
   }
 
+  // الأكواد المعتمدة للعجلة
   let validCodes = JSON.parse(localStorage.getItem('dolmaValidCodes')) || [
       'ND96-101', 'ND96-102', 'ND96-103', 'ND96-104', 'ND96-105',
-      'DOLMA-96A', 'DOLMA-96B', 'DOLMA-96C', 'SAUDI96'
+      'ND96-106', 'ND96-107', 'ND96-108', 'ND96-109', 'ND96-110',
+      'DOLMA-96A', 'DOLMA-96B', 'DOLMA-96C', 'DOLMA-96D', 'DOLMA-96E',
+      'SAUDI96', 'ROYAL96', 'KINGDOM96', 'GREEN96', 'GOLDEN96'
   ];
 
   let usedCodes = JSON.parse(localStorage.getItem('dolmaUsedCodes')) || [];
