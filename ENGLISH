@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مُتقِن | LinguaMaster</title>
+    <style>
+        :root {
+            --bg-color: #0b0f19;
+            --card-bg: rgba(30, 41, 59, 0.7);
+            --accent-gold: #f59e0b;
+            --accent-blue: #3b82f6;
+            --accent-green: #10b981;
+            --accent-purple: #8b5cf6;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 15px;
+            background-image: radial-gradient(circle at 50% 0%, rgba(59, 130, 246, 0.15), transparent 50%);
+        }
+
+        .app-container {
+            width: 100%;
+            max-width: 450px;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border-radius: 28px;
+            padding: 20px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+        }
+
+        /* Stat Counter Badge */
+        .stats-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid var(--accent-green);
+            border-radius: 16px;
+            padding: 10px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .stats-badge span {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--accent-green);
+        }
+
+        .top-tabs {
+            display: flex;
+            background: rgba(0,0,0,0.3);
+            padding: 5px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            gap: 4px;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 10px 4px;
+            border: none;
+            background: transparent;
+            color: var(--text-muted);
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 12px;
+            transition: 0.3s;
+        }
+
+        .tab-btn.active {
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--text-main);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+
+        .view { display: none; }
+        .view.active { display: block; }
+
+        /* Places Selector */
+        .category-select {
+            width: 100%;
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: var(--text-main);
+            padding: 12px;
+            border-radius: 14px;
+            font-size: 14px;
+            outline: none;
+            margin-bottom: 15px;
+        }
+
+        .word-card {
+            background: rgba(255,255,255,0.03);
+            border-radius: 18px;
+            padding: 16px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .word-info .en {
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--accent-blue);
+            direction: ltr;
+            text-align: right;
+        }
+
+        .word-info .ar {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .icon-btn {
+            background: rgba(255,255,255,0.08);
+            border: none;
+            color: var(--text-main);
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.2s;
+        }
+
+        .icon-btn:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        .icon-btn.done {
+            background: var(--accent-green);
+            color: white;
+        }
+
+        /* Add custom word inputs */
+        .add-box {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 15px;
+            background: rgba(0,0,0,0.2);
+            padding: 12px;
+            border-radius: 16px;
+        }
+
+        .add-input {
+            background: rgba(0,0,0,0.4);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 10px 12px;
+            border-radius: 10px;
+            color: #fff;
+            outline: none;
+            font-size: 13px;
+        }
+
+        .add-btn {
+            background: var(--accent-blue);
+            color: white;
+            border: none;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Challenge Timeline */
+        .challenge-item {
+            background: rgba(255,255,255,0.03);
+            border-right: 4px solid var(--accent-purple);
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+        }
+
+        .challenge-title {
+            font-weight: bold;
+            font-size: 14px;
+            color: var(--accent-gold);
+            margin-bottom: 4px;
+        }
+
+        .yt-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: #ef4444;
+            text-decoration: none;
+            font-size: 12px;
+            margin-top: 8px;
+            font-weight: bold;
+            background: rgba(239, 68, 68, 0.1);
+            padding: 6px 10px;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-container">
+
+    <div class="header">
+        <h1>🗣️ مُتقِن الإنجليزية</h1>
+        <p style="font-size: 11px; color: var(--text-muted);">تعلم بالذكاء والتكرار</p>
+    </div>
+
+    <!-- Weekly Counter -->
+    <div class="stats-badge">
+        <div>كلمات تم حفظها هذا الأسبوع</div>
+        <span id="weeklyCounter">0</span> كلمات
+    </div>
+
+    <div class="top-tabs">
+        <button class="tab-btn active" onclick="switchTab('wordsTab', this)">📚 الأماكن والكلمات</button>
+        <button class="tab-btn" onclick="switchTab('challengeTab', this)">🔥 تحدي الـ 3 أشهر</button>
+    </div>
+
+    <!-- WORDS VIEW -->
+    <div id="wordsTab" class="view active">
+        
+        <select id="categorySelect" class="category-select" onchange="renderWords()">
+            <option value="restaurant">🍽️ في المطعم (At the Restaurant)</option>
+            <option value="airport">✈️ في المطار (At the Airport)</option>
+            <option value="hotel">🏨 في الفندق (At the Hotel)</option>
+            <option value="shopping">🛍️ التسوق (Shopping)</option>
+            <option value="custom">✏️ كلماتي المضافة</option>
+        </select>
+
+        <!-- Form for custom words -->
+        <div class="add-box">
+            <input type="text" id="customEn" class="add-input" placeholder="الكلمة بالإنجليزية (مثال: Menu)...">
+            <input type="text" id="customAr" class="add-input" placeholder="المعنى بالعربي (مثال: قائمة الطعام)...">
+            <button class="add-btn" onclick="addCustomWord()">إضافة كلمة جديدة ➕</button>
+        </div>
+
+        <div id="wordsList"></div>
+    </div>
+
+    <!-- CHALLENGE VIEW -->
+    <div id="challengeTab" class="view">
+        <p style="font-size:12px; color:var(--text-muted); margin-bottom:15px; text-align:center;">
+            خطة منظمة لـ 12 أسبوعاً (3 أشهر) للانتقال لمستوى جديد:
+        </p>
+        <div id="challengeList"></div>
+    </div>
+
+</div>
+
+<script>
+    // Initial Word Data
+    const defaultWords = {
+        restaurant: [
+            { en: "Menu", ar: "قائمة الطعام" },
+            { en: "Reservation", ar: "حجز" },
+            { en: "Bill / Check", ar: "الفاتورة" },
+            { en: "Waiter", ar: "نادل / نادلة" },
+            { en: "Appetizer", ar: "مقبلات" },
+            { en: "Main Course", ar: "الطبق الرئيسي" },
+            { en: "Dessert", ar: "حلوى" }
+        ],
+        airport: [
+            { en: "Boarding Pass", ar: "بطاقة الصعود" },
+            { en: "Passport Control", ar: "الجوازات" },
+            { en: "Baggage Claim", ar: "منطقة استلام الأمتعة" },
+            { en: "Gate", ar: "بوابة المغادرة" },
+            { en: "Customs", ar: "الجمارك" }
+        ],
+        hotel: [
+            { en: "Check-in", ar: "تسجيل الوصول" },
+            { en: "Room Service", ar: "خدمة الغرف" },
+            { en: "Reception", ar: "الاستقبال" },
+            { en: "Amenities", ar: "المرافق والخدمات" }
+        ],
+        shopping: [
+            { en: "Discount", ar: "خصم" },
+            { en: "Receipt", ar: "إيصال" },
+            { en: "Fitting Room", ar: "غرفة القياس" },
+            { en: "Cashier", ar: "أمين الصندوق" }
+        ]
+    };
+
+    // YouTube Challenge Data (3 Months / 12 Weeks)
+    const challengeData = [
+        { week: 1, title: "الأسبوع 1: أساسيات النطق والقواعد الأولى", yt: "https://www.youtube.com/results?search_query=english+basics+pronunciation" },
+        { week: 2, title: "الأسبوع 2: أشهر 100 جملة في الحياة اليومية", yt: "https://www.youtube.com/results?search_query=100+common+english+phrases" },
+        { week: 3, title: "الأسبوع 3: محادثات المطعم والتسوق", yt: "https://www.youtube.com/results?search_query=english+conversation+restaurant+shopping" },
+        { week: 4, title: "الأسبوع 4: تقوية الاستماع والمحادثة البسيطة", yt: "https://www.youtube.com/results?search_query=english+listening+practice+beginner" },
+        { week: 5, title: "الأسبوع 5: أزمنة الأفعال الأساسية (الماضي والمستقبل)", yt: "https://www.youtube.com/results?search_query=english+tenses+simplified" },
+        { week: 6, title: "الأسبوع 6: المصطلحات الشائعة في السفر والعمل", yt: "https://www.youtube.com/results?search_query=english+travel+vocabulary" },
+        { week: 7, title: "الأسبوع 7: التحدث مع الذات وتكوين الأفكار", yt: "https://www.youtube.com/results?search_query=think+in+english+practice" },
+        { week: 8, title: "الأسبوع 8: التعبير عن الرأي والقصص القصيرة", yt: "https://www.youtube.com/results?search_query=english+speaking+practice" },
+        { week: 9, title: "الأسبوع 9: تطوير الحصيلة اللغوية (الصفات والمقارنات)", yt: "https://www.youtube.com/results?search_query=english+adjectives+comparisons" },
+        { week: 10, title: "الأسبوع 10: الاستماع إلى بودكاست إنجليزي بطيء", yt: "https://www.youtube.com/results?search_query=english+podcast+for+learning" },
+        { week: 11, title: "الأسبوع 11: احتراف نطق الكلمات الصعبة", yt: "https://www.youtube.com/results?search_query=english+pronunciation+mastery" },
+        { week: 12, title: "الأسبوع 12: المراجعة الشاملة وممارسة المحادثة الطويلة", yt: "https://www.youtube.com/results?search_query=english+fluency+challenge" }
+    ];
+
+    let customWords = JSON.parse(localStorage.getItem('customWords')) || [];
+    let savedStatus = JSON.parse(localStorage.getItem('savedWordsStatus')) || {};
+
+    function switchTab(tabId, btn) {
+        document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(tabId).classList.add('active');
+        btn.classList.add('active');
+    }
+
+    // TTS Assistant
+    function speak(text) {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(text);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.9;
+            window.speechSynthesis.speak(utterance);
+        } else {
+            alert("المتصفح لا يدعم نطق الصوت المباشر.");
+        }
+    }
+
+    function toggleSaveWord(wordEn) {
+        savedStatus[wordEn] = !savedStatus[wordEn];
+        localStorage.setItem('savedWordsStatus', JSON.stringify(savedStatus));
+        updateCounter();
+        renderWords();
+    }
+
+    function updateCounter() {
+        const count = Object.values(savedStatus).filter(Boolean).length;
+        document.getElementById('weeklyCounter').innerText = count;
+    }
+
+    function addCustomWord() {
+        const en = document.getElementById('customEn').value.trim();
+        const ar = document.getElementById('customAr').value.trim();
+        if (!en || !ar) return;
+
+        customWords.push({ en, ar });
+        localStorage.setItem('customWords', JSON.stringify(customWords));
+        document.getElementById('customEn').value = '';
+        document.getElementById('customAr').value = '';
+        document.getElementById('categorySelect').value = 'custom';
+        renderWords();
+    }
+
+    function renderWords() {
+        const cat = document.getElementById('categorySelect').value;
+        const list = cat === 'custom' ? customWords : (defaultWords[cat] || []);
+        const container = document.getElementById('wordsList');
+
+        if (list.length === 0) {
+            container.innerHTML = `<p style="text-align:center; color:var(--text-muted); font-size:13px; margin-top:20px;">لا توجد كلمات في هذا القسم حالياً.</p>`;
+            return;
+        }
+
+        container.innerHTML = list.map(item => {
+            const isSaved = !!savedStatus[item.en];
+            return `
+            <div class="word-card">
+                <div class="word-info">
+                    <div class="en">${item.en}</div>
+                    <div class="ar">${item.ar}</div>
+                </div>
+                <div class="actions">
+                    <button class="icon-btn" onclick="speak('${item.en.replace(/'/g, "\\'")}')" title="نطق الكلمة">🔊</button>
+                    <button class="icon-btn ${isSaved ? 'done' : ''}" onclick="toggleSaveWord('${item.en.replace(/'/g, "\\'")}')" title="تم الحفظ">
+                        ${isSaved ? '✓' : '＋'}
+                    </button>
+                </div>
+            </div>`;
+        }).join('');
+    }
+
+    function renderChallenge() {
+        const container = document.getElementById('challengeList');
+        container.innerHTML = challengeData.map(c => `
+            <div class="challenge-item">
+                <div class="challenge-title">${c.title}</div>
+                <a href="${c.yt}" target="_blank" class="yt-link">
+                    <span>▶</span> مشاهدة الدروس والتمارين على يوتيوب
+                </a>
+            </div>
+        `).join('');
+    }
+
+    // Initialize
+    updateCounter();
+    renderWords();
+    renderChallenge();
+</script>
+
+</body>
+</html>
