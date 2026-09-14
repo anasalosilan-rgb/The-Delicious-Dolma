@@ -124,7 +124,6 @@
         <div class="badge">💚 عروض اليوم الوطني 96 🇸🇦</div>
     </div>
 
-    <!-- زر تحكم مباشر للتأكد من تجاوز قيود الجوال -->
     <button class="audio-btn" id="toggleAudioBtn" onclick="toggleAudio()">🔊 تشغيل / إيقاف النشيد 🇸🇦</button>
 
     <div class="section-title">📦 عروض ورق العنب</div>
@@ -171,16 +170,14 @@
     </div>
 </div>
 
-<!-- عنصر الصوت المجهز للجوال -->
+<!-- تم تحديث رابط ملف الصوت/الفيديو وصيغته ليتطابق مع الملف الجديد -->
 <audio id="national-anthem" loop preload="auto" playsinline>
-  <source src="https://upload.wikimedia.org/wikipedia/commons/2/26/National_Anthem_of_Saudi_Arabia.ogg" type="audio/ogg">
-  <source src="https://www.navyband.navy.mil/music/anthems/saudi-arabia.mp3" type="audio/mpeg">
+  <source src="v14044g50000crnt4pfog65rm4bs1gr0.mp4" type="audio/mp4">
 </audio>
 
 <script>
   var audio = document.getElementById('national-anthem');
 
-  // الربط المباشر بضغط زر البداية لتجاوز حظر متصفحات الجوال
   document.getElementById('startBtn').addEventListener('click', function() {
       document.getElementById('promoModal').style.display = 'none';
       playAudio();
@@ -202,7 +199,6 @@
       }
   }
 
-  // عجلة المكافآت
   let validCodes = JSON.parse(localStorage.getItem('dolmaValidCodes')) || [
       'ND96-101', 'ND96-102', 'ND96-103', 'ND96-104', 'ND96-105',
       'DOLMA-96A', 'DOLMA-96B', 'DOLMA-96C', 'SAUDI96'
