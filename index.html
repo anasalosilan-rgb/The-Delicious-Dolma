@@ -128,7 +128,13 @@
         <div class="badge">💚 عروض اليوم الوطني 96 🇸🇦</div>
     </div>
 
-    <button class="audio-control" id="audioBtn" onclick="toggleNationalMusic()">⏸️ إيقاف النغمة</button>
+    <!-- ملف MP3 مباشر وسريع من خادم CDN موثوق -->
+    <audio id="nationalAudio" loop playsinline preload="auto">
+        <source src="https://actions.google.com/sounds/v1/ambiences/outdoor_festival.ogg" type="audio/ogg">
+        <source src="https://cdn.pixabay.com/download/audio/2022/05/27/audio_1808fbf07a.mp3?filename=national-anthem-short-112378.mp3" type="audio/mpeg">
+    </audio>
+
+    <button class="audio-control" id="audioBtn" onclick="toggleNationalMusic()">▶️ تشغيل النشيد 🇸🇦</button>
 
     <div class="section-title">📦 عروض ورق العنب</div>
 
@@ -175,72 +181,34 @@
 </div>
 
 <script>
-    let audioCtx = null;
-    let isPlaying = false;
-    let anthemTimer = null;
-
-    // النوتات الموسيقية للنشيد الوطني
-    const notes = [
-        { f: 392, d: 0.4 }, { f: 440, d: 0.4 }, { f: 493.88, d: 0.6 },
-        { f: 523.25, d: 0.4 }, { f: 587.33, d: 0.8 }, { f: 523.25, d: 0.4 },
-        { f: 493.88, d: 0.4 }, { f: 440, d: 0.8 }, { f: 392, d: 0.6 }
-    ];
-
-    function playAnthemTune() {
-        if (!isPlaying) return;
-        if (!audioCtx) {
-            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        }
-
-        let time = audioCtx.currentTime;
-        notes.forEach((note) => {
-            let osc = audioCtx.createOscillator();
-            let gain = audioCtx.createGain();
-            
-            osc.type = 'sine';
-            osc.frequency.setValueAtTime(note.f, time);
-            
-            gain.gain.setValueAtTime(0.15, time);
-            gain.gain.exponentialRampToValueAtTime(0.001, time + note.d);
-
-            osc.connect(gain);
-            gain.connect(audioCtx.destination);
-
-            osc.start(time);
-            osc.stop(time + note.d);
-
-            time += note.d + 0.05;
-        });
-
-        let totalDuration = (time - audioCtx.currentTime) * 1000;
-        anthemTimer = setTimeout(() => {
-            if (isPlaying) playAnthemTune();
-        }, totalDuration);
-    }
+    const audio = document.getElementById('nationalAudio');
+    const audioBtn = document.getElementById('audioBtn');
 
     function startExperience() {
         document.getElementById('promoModal').style.display = 'none';
-        isPlaying = true;
-        playAnthemTune();
-        document.getElementById('audioBtn').innerText = "⏸️ إيقاف النغمة";
+        playAudio();
+    }
+
+    function playAudio() {
+        audio.play().then(() => {
+            audioBtn.innerText = "⏸️ إيقاف النشيد";
+        }).catch(() => {
+            audioBtn.innerText = "▶️ اضغط هنا لتشغيل النشيد 🇸🇦";
+        });
     }
 
     function toggleNationalMusic() {
-        const audioBtn = document.getElementById('audioBtn');
-        if (isPlaying) {
-            isPlaying = false;
-            clearTimeout(anthemTimer);
-            audioBtn.innerText = "▶️ تشغيل النغمة 🇸🇦";
+        if (audio.paused) {
+            playAudio();
         } else {
-            isPlaying = true;
-            playAnthemTune();
-            audioBtn.innerText = "⏸️ إيقاف النغمة";
+            audio.pause();
+            audioBtn.innerText = "▶️ تشغيل النشيد 🇸🇦";
         }
     }
 
     let validCodes = JSON.parse(localStorage.getItem('dolmaValidCodes')) || [
-        'ND96-101', 'ND96-102', 'ND96-103', 'ND96-104', 'ND96-105',
-        'DOLMA-96A', 'DOLMA-96B', 'DOLMA-96C', 'SAUDI96'
+        'SA-96', 'DL-12', 'SA-23', 'DL-33', 'SA-22',
+        'DOLMA-96A', 'DOLMA-96SA', 'DOLMA-96', 'SAUDI96'
     ];
 
     let usedCodes = JSON.parse(localStorage.getItem('dolmaUsedCodes')) || [];
