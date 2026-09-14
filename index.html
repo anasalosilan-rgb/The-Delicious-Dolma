@@ -128,12 +128,7 @@
         <div class="badge">💚 عروض اليوم الوطني 96 🇸🇦</div>
     </div>
 
-    <!-- رابط صوتي مباشر يضمن تشغيل النشيد -->
-    <audio id="nationalAudio" loop preload="auto">
-        <source src="https://upload.wikimedia.org/wikipedia/commons/2/27/Saudi_Arabia_National_Anthem.ogg" type="audio/ogg">
-    </audio>
-
-    <button class="audio-control" id="audioBtn" onclick="toggleNationalMusic()">⏸️ إيقاف النشيد</button>
+    <button class="audio-control" id="audioBtn" onclick="toggleNationalMusic()">⏸️ إيقاف النغمة</button>
 
     <div class="section-title">📦 عروض ورق العنب</div>
 
@@ -180,26 +175,66 @@
 </div>
 
 <script>
-    const audio = document.getElementById('nationalAudio');
-    const audioBtn = document.getElementById('audioBtn');
-    const promoModal = document.getElementById('promoModal');
+    let audioCtx = null;
+    let isPlaying = false;
+    let anthemTimer = null;
+
+    // النوتات الموسيقية للنشيد الوطني
+    const notes = [
+        { f: 392, d: 0.4 }, { f: 440, d: 0.4 }, { f: 493.88, d: 0.6 },
+        { f: 523.25, d: 0.4 }, { f: 587.33, d: 0.8 }, { f: 523.25, d: 0.4 },
+        { f: 493.88, d: 0.4 }, { f: 440, d: 0.8 }, { f: 392, d: 0.6 }
+    ];
+
+    function playAnthemTune() {
+        if (!isPlaying) return;
+        if (!audioCtx) {
+            audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+
+        let time = audioCtx.currentTime;
+        notes.forEach((note) => {
+            let osc = audioCtx.createOscillator();
+            let gain = audioCtx.createGain();
+            
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(note.f, time);
+            
+            gain.gain.setValueAtTime(0.15, time);
+            gain.gain.exponentialRampToValueAtTime(0.001, time + note.d);
+
+            osc.connect(gain);
+            gain.connect(audioCtx.destination);
+
+            osc.start(time);
+            osc.stop(time + note.d);
+
+            time += note.d + 0.05;
+        });
+
+        let totalDuration = (time - audioCtx.currentTime) * 1000;
+        anthemTimer = setTimeout(() => {
+            if (isPlaying) playAnthemTune();
+        }, totalDuration);
+    }
 
     function startExperience() {
-        promoModal.style.display = 'none';
-        audio.play().then(() => {
-            audioBtn.innerText = "⏸️ إيقاف النشيد";
-        }).catch(err => {
-            console.log("خطأ في تشغيل النشيد: ", err);
-        });
+        document.getElementById('promoModal').style.display = 'none';
+        isPlaying = true;
+        playAnthemTune();
+        document.getElementById('audioBtn').innerText = "⏸️ إيقاف النغمة";
     }
 
     function toggleNationalMusic() {
-        if (audio.paused) {
-            audio.play();
-            audioBtn.innerText = "⏸️ إيقاف النشيد";
+        const audioBtn = document.getElementById('audioBtn');
+        if (isPlaying) {
+            isPlaying = false;
+            clearTimeout(anthemTimer);
+            audioBtn.innerText = "▶️ تشغيل النغمة 🇸🇦";
         } else {
-            audio.pause();
-            audioBtn.innerText = "▶️ تشغيل النشيد 🇸🇦";
+            isPlaying = true;
+            playAnthemTune();
+            audioBtn.innerText = "⏸️ إيقاف النغمة";
         }
     }
 
