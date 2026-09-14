@@ -68,23 +68,6 @@
         .slogan { color: #86efac; font-size: 13px; font-weight: bold; margin-bottom: 12px; }
         .badge { background: var(--national-green); border: 1px solid var(--national-gold); color: #fff; padding: 6px 14px; border-radius: 20px; font-size: 12px; font-weight: bold; display: inline-block; margin-bottom: 15px; }
 
-        .audio-control {
-            background: rgba(0, 0, 0, 0.4);
-            color: var(--national-gold);
-            border: 1px solid var(--national-gold);
-            padding: 10px 18px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: bold;
-            cursor: pointer;
-            margin-bottom: 15px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            width: 100%;
-        }
-
         .section-title { font-size: 16px; color: var(--national-gold); font-weight: bold; margin: 15px 0 10px 0; text-align: right; border-right: 4px solid var(--national-gold); padding-right: 8px; }
         .product-card { background: rgba(0, 0, 0, 0.3); border-radius: 16px; padding: 14px; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; border: 1px solid rgba(212,175,55,0.3); }
         .product-info { text-align: right; }
@@ -116,7 +99,7 @@
             <br><br>
             🎁 <b>ادخل كودك، أدِر العجلة، واحصل على قسيمة مجانية لطلبك القادم!</b>
         </p>
-        <button class="start-btn" onclick="startExperience()">استكشف عروض اليوم الوطني 🇸🇦 🎶</button>
+        <button class="start-btn" onclick="document.getElementById('promoModal').style.display='none'">استكشف عروض اليوم الوطني 🇸🇦 🎶</button>
     </div>
 </div>
 
@@ -127,13 +110,6 @@
         <div class="slogan">حامض ولذيذ ويذوب بالفم ✨</div>
         <div class="badge">💚 عروض اليوم الوطني 96 🇸🇦</div>
     </div>
-
-    <!-- رابط النشيد الوطني السعودي الرسمي (سارعي للمجد والعلياء) -->
-    <audio id="nationalAudio" loop playsinline preload="auto">
-        <source src="https://www.navyband.navy.mil/music/anthems/saudi-arabia.mp3" type="audio/mpeg">
-    </audio>
-
-    <button class="audio-control" id="audioBtn" onclick="toggleNationalMusic()">▶️ تشغيل النشيد الوطني 🇸🇦</button>
 
     <div class="section-title">📦 عروض ورق العنب</div>
 
@@ -179,89 +155,82 @@
     </div>
 </div>
 
+<!-- عنصر تشغيل الصوت المخفي -->
+<audio id="national-anthem" loop preload="auto">
+  <source src="https://upload.wikimedia.org/wikipedia/commons/2/26/National_Anthem_of_Saudi_Arabia.ogg" type="audio/ogg">
+  <source src="https://www.navyband.navy.mil/music/anthems/saudi-arabia.mp3" type="audio/mpeg">
+  متصفحك لا يدعم تشغيل الصوت.
+</audio>
+
 <script>
-    const audio = document.getElementById('nationalAudio');
-    const audioBtn = document.getElementById('audioBtn');
-
-    function startExperience() {
-        document.getElementById('promoModal').style.display = 'none';
-        playAudio();
+  // تشغيل الصوت بمجرد أن يضغط المستخدم في أي مكان داخل الصفحة
+  document.addEventListener('click', function() {
+    var audio = document.getElementById('national-anthem');
+    if (audio && audio.paused) {
+      audio.play().catch(function(error) {
+        console.log("تعذر تشغيل الصوت تلقائياً: ", error);
+      });
     }
+  }, { once: true });
 
-    function playAudio() {
-        audio.play().then(() => {
-            audioBtn.innerText = "⏸️ إيقاف النشيد";
-        }).catch(() => {
-            audioBtn.innerText = "▶️ اضغط هنا لتشغيل النشيد الوطني 🇸🇦";
-        });
-    }
+  // برمجة عجلة العروض
+  let validCodes = JSON.parse(localStorage.getItem('dolmaValidCodes')) || [
+      'ND96-101', 'ND96-102', 'ND96-103', 'ND96-104', 'ND96-105',
+      'DOLMA-96A', 'DOLMA-96B', 'DOLMA-96C', 'SAUDI96'
+  ];
 
-    function toggleNationalMusic() {
-        if (audio.paused) {
-            playAudio();
-        } else {
-            audio.pause();
-            audioBtn.innerText = "▶️ تشغيل النشيد الوطني 🇸🇦";
-        }
-    }
+  let usedCodes = JSON.parse(localStorage.getItem('dolmaUsedCodes')) || [];
+  let isSpinning = false;
 
-    let validCodes = JSON.parse(localStorage.getItem('dolmaValidCodes')) || [
-        'ND96-101', 'ND96-102', 'ND96-103', 'ND96-104', 'ND96-105',
-        'DOLMA-96A', 'DOLMA-96B', 'DOLMA-96C', 'SAUDI96'
-    ];
+  function spinWheel() {
+      const inputField = document.getElementById('userCode');
+      const codeInput = inputField.value.trim().toUpperCase();
 
-    let usedCodes = JSON.parse(localStorage.getItem('dolmaUsedCodes')) || [];
-    let isSpinning = false;
+      if(!codeInput) {
+          alert('يرجى إدخال كود السحب أولاً لدوران العجلة!');
+          return;
+      }
 
-    function spinWheel() {
-        const inputField = document.getElementById('userCode');
-        const codeInput = inputField.value.trim().toUpperCase();
+      if (usedCodes.includes(codeInput)) {
+          alert('❌ عذراً، هذا الكود تم استخدامه سابقاً!');
+          return;
+      }
 
-        if(!codeInput) {
-            alert('يرجى إدخال كود السحب أولاً لدوران العجلة!');
-            return;
-        }
+      const codeIndex = validCodes.indexOf(codeInput);
+      if (codeIndex === -1) {
+          alert('❌ الكود غير صحيح! يرجى التأكد من الكود الممنوح لك.');
+          return;
+      }
 
-        if (usedCodes.includes(codeInput)) {
-            alert('❌ عذراً، هذا الكود تم استخدامه سابقاً!');
-            return;
-        }
+      if(isSpinning) return;
+      isSpinning = true;
 
-        const codeIndex = validCodes.indexOf(codeInput);
-        if (codeIndex === -1) {
-            alert('❌ الكود غير صحيح! يرجى التأكد من الكود الممنوح لك.');
-            return;
-        }
+      usedCodes.push(codeInput);
+      localStorage.setItem('dolmaUsedCodes', JSON.stringify(usedCodes));
 
-        if(isSpinning) return;
-        isSpinning = true;
+      inputField.disabled = true;
+      document.getElementById('spinButton').disabled = true;
+      document.getElementById('spinButton').style.opacity = '0.5';
 
-        usedCodes.push(codeInput);
-        localStorage.setItem('dolmaUsedCodes', JSON.stringify(usedCodes));
+      const wheel = document.getElementById('wheel');
+      const degrees = 1800 + Math.floor(Math.random() * 360);
+      wheel.style.transform = `rotate(${degrees}deg)`;
 
-        inputField.disabled = true;
-        document.getElementById('spinButton').disabled = true;
-        document.getElementById('spinButton').style.opacity = '0.5';
+      const rewards = [
+          'قسيمة توصيل مجاني 🚚',
+          'قسيمة خصم 5% 🎉',
+          'قسيمة خصم 10% 🔥',
+          'قسيمة صحن فتة مجانية (أصغر حجم) 🍲',
+          'قسيمة خصم 5 ريال 🛵'
+      ];
 
-        const wheel = document.getElementById('wheel');
-        const degrees = 1800 + Math.floor(Math.random() * 360);
-        wheel.style.transform = `rotate(${degrees}deg)`;
-
-        const rewards = [
-            'قسيمة توصيل مجاني 🚚',
-            'قسيمة خصم 5% 🎉',
-            'قسيمة خصم 10% 🔥',
-            'قسيمة صحن فتة مجانية (أصغر حجم) 🍲',
-            'قسيمة خصم 5 ريال 🛵'
-        ];
-
-        setTimeout(() => {
-            const selectedReward = rewards[Math.floor(Math.random() * rewards.length)];
-            document.getElementById('wheelResult').innerHTML = `🎉 **مبروك!** حصلت على: <br><span style="color:#86efac; font-size:17px;">${selectedReward}</span><br><small style="color:#a3c2b0; font-size:11px;">احفظ لقطة الشاشة واستخدم القسيمة في طلبك القادم!</small>`;
-            alert(`🎉 مبروك!\nحصلت على: ${selectedReward}\n\nاحفظ اللقطة وقم بإبراز القسيمة للمتجر في طلبك القادم!`);
-            isSpinning = false;
-        }, 4000);
-    }
+      setTimeout(() => {
+          const selectedReward = rewards[Math.floor(Math.random() * rewards.length)];
+          document.getElementById('wheelResult').innerHTML = `🎉 **مبروك!** حصلت على: <br><span style="color:#86efac; font-size:17px;">${selectedReward}</span><br><small style="color:#a3c2b0; font-size:11px;">احفظ لقطة الشاشة واستخدم القسيمة في طلبك القادم!</small>`;
+          alert(`🎉 مبروك!\nحصلت على: ${selectedReward}\n\nاحفظ اللقطة وقم بإبراز القسيمة للمتجر في طلبك القادم!`);
+          isSpinning = false;
+      }, 4000);
+  }
 </script>
 
 </body>
