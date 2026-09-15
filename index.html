@@ -15,7 +15,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); display: flex; justify-content: center; padding: 12px; padding-bottom: 270px; }
+        body { background: var(--bg-dark); color: var(--text-main); display: flex; justify-content: center; padding: 12px; padding-bottom: 310px; }
         .app { width: 100%; max-width: 420px; background: var(--card-bg); border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); border: 2px solid var(--national-gold); text-align: center; position: relative; }
         
         .promo-overlay {
@@ -174,7 +174,7 @@
             padding: 8px;
             margin-bottom: 8px;
             display: grid;
-            grid-template-columns: 1fr 1.2fr 1fr;
+            grid-template-columns: 1fr 1.2fr 1.2fr;
             gap: 6px;
         }
 
@@ -189,11 +189,57 @@
             width: 100%;
         }
 
+        /* خيار الإهداء */
+        .gift-toggle-container {
+            background: rgba(212, 175, 55, 0.1);
+            border: 1px dashed var(--national-gold);
+            border-radius: 10px;
+            padding: 8px 10px;
+            margin-bottom: 8px;
+            text-align: right;
+        }
+
+        .gift-checkbox-label {
+            font-size: 12px;
+            color: var(--national-gold);
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .gift-fields {
+            display: none;
+            margin-top: 8px;
+            grid-template-columns: 1fr 1fr;
+            gap: 6px;
+        }
+
+        .gift-fields.active {
+            display: grid;
+        }
+
+        .gift-input {
+            background: #000;
+            border: 1px solid rgba(212,175,55,0.5);
+            color: #fff;
+            padding: 6px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            outline: none;
+            width: 100%;
+        }
+
+        .gift-input-full {
+            grid-column: span 2;
+        }
+
         .cart-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
         .cart-title { color: var(--national-gold); font-size: 14px; font-weight: bold; }
         
         .cart-items-list {
-            max-height: 100px;
+            max-height: 90px;
             overflow-y: auto;
             margin-bottom: 8px;
             text-align: right;
@@ -293,7 +339,7 @@
         <p>
             أهلاً بكم في <span class="highlight">The Delicious Dolma</span> ✨<br>
             نستقبل طلباتكم ابتداءً من <b>اليوم 🤍✨</b><br>
-            استقبال الطلبات مفتوح طوال الأسبوع من <b>الأحد إلى السبت</b>.<br>
+            استقبال الطلبات مفتوح يومياً من <b>1:00 ظهراً إلى 10:00 مساءً</b> (الأحد - السبت).<br>
             <span class="highlight">💡 الأفضل والأولوية للحجز والتجهيز المبكر ابتداءً من اليوم الثلاثاء!</span>
         </p>
         <div class="limit-tag">⚠️ الحد الأقصى: 4 طلبات لكل عميل لضمان الجودة</div>
@@ -307,7 +353,7 @@
     <div class="header">
         <h1>The Delicious Dolma</h1>
         <div class="slogan">حامض، موزون، وطعم يطرب الخاطر ✨</div>
-        <div class="badge">💚 استقبال الطلبات مفتوح (الحد الأقصى 4 طلبات لكل عميل)</div>
+        <div class="badge">💚 أوقات الطلبات: 1:00 ظهراً - 10:00 مساءً (حد أقصى 4 طلبات)</div>
     </div>
 
     <!-- العداد التنازلي -->
@@ -411,26 +457,26 @@
 
     <div class="product-card">
         <div class="product-info">
-            <h4>طبق الفتة (الوسط)</h4>
-            <p>طبقات اللذاذة والصوص الخاص</p>
+            <h4>طبق الفتة (الوسط) 👥</h4>
+            <p>طبقات اللذاذة والصوص الخاص (تكفي من 4 إلى 6 أشخاص)</p>
             <div class="price-box">
                 <span class="price">30 ر.س</span>
                 <span class="old-price">35 ر.س</span>
             </div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('طبق فتة وسط', 30)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('طبق فتة وسط (تكفي 4-6 أشخاص)', 30)">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
         <div class="product-info">
-            <h4>طبق الفتة (الكبير)</h4>
+            <h4>طبق الفتة (الكبير) 👨‍👩‍👧‍👦</h4>
             <p>تكفي وتزيد أحبابك (تكفي لـ 8-10 صحون صغار)</p>
             <div class="price-box">
                 <span class="price">40 ر.س</span>
                 <span class="old-price">45 ر.س</span>
             </div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('طبق فتة كبير', 40)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('طبق فتة كبير (تكفي 8-10 صحون)', 40)">أضف للسلة 🛒</button>
     </div>
 
     <!-- قسم صمّم طبقك المفضل -->
@@ -447,8 +493,8 @@
                 <option value="ملفوف (40 حبة)" data-price="60">ملفوف - 40 حبة (60 ر.س)</option>
                 <option value="ملفوف (60 حبة)" data-price="90">ملفوف - 60 حبة (90 ر.س)</option>
                 <option value="ملفوف (80 حبة)" data-price="120">ملفوف - 80 حبة (120 ر.س)</option>
-                <option value="طبق فتة (وسط)" data-price="30">طبق فتة وسط (30 ر.س)</option>
-                <option value="طبق فتة (كبير)" data-price="40">طبق فتة كبير (40 ر.س)</option>
+                <option value="طبق فتة وسط (4-6 أشخاص)" data-price="30">طبق فتة وسط (30 ر.س)</option>
+                <option value="طبق فتة كبير (8-10 صحون)" data-price="40">طبق فتة كبير (40 ر.س)</option>
             </select>
         </div>
 
@@ -540,9 +586,23 @@
             </optgroup>
         </select>
         <select id="deliveryTime" class="delivery-input">
-            <option value="الفترة المسائية (4-8 مساءً)">مساءً (4-8)</option>
-            <option value="الفترة الليلية (8-12 ليلاً)">ليلاً (8-12)</option>
+            <option value="1:00 ظهراً - 4:00 عصراً">1:00 ظ - 4:00 عصراً</option>
+            <option value="4:00 عصراً - 7:00 مساءً">4:00 عصراً - 7:00 م</option>
+            <option value="7:00 مساءً - 10:00 مساءً">7:00 م - 10:00 مساءً</option>
         </select>
+    </div>
+
+    <!-- خيار خدمة أرسلها كهدية 🎁 (بدون تغليف) -->
+    <div class="gift-toggle-container">
+        <label class="gift-checkbox-label">
+            <input type="checkbox" id="isGiftCheckbox" onchange="toggleGiftFields()">
+            🎁 أرسل الطلب كـ "إهداء لشخص آخر" (بدون إظهار الأسعار)
+        </label>
+        <div class="gift-fields" id="giftFields">
+            <input type="text" id="giftRecipientName" class="gift-input" placeholder="اسم المهدَى إليه...">
+            <input type="tel" id="giftRecipientPhone" class="gift-input" placeholder="رقم جوال المستلم...">
+            <input type="text" id="giftCardMessage" class="gift-input gift-input-full" placeholder="رسالة / كرت الإهداء (مثلاً: بالعافية على قلبك ✨)">
+        </div>
     </div>
 
     <div class="cart-header">
@@ -569,7 +629,7 @@
   var audio = document.getElementById('national-anthem');
   let cart = [];
   const freeShippingThreshold = 150;
-  const maxOrderLimit = 4; // الحد الأقصى 4 طلبات لكل عميل
+  const maxOrderLimit = 4;
 
   document.getElementById('startBtn').addEventListener('click', function() {
       document.getElementById('promoModal').style.display = 'none';
@@ -589,6 +649,16 @@
           audio.play();
       } else {
           audio.pause();
+      }
+  }
+
+  function toggleGiftFields() {
+      const checkbox = document.getElementById('isGiftCheckbox');
+      const fields = document.getElementById('giftFields');
+      if (checkbox.checked) {
+          fields.classList.add('active');
+      } else {
+          fields.classList.remove('active');
       }
   }
 
@@ -666,15 +736,13 @@
 
       cart.push({ name: details, price: totalCustomPrice, qty: 1 });
       updateCartUI();
-      alert(`تمت إضافة الطبق المخصص بنجاح!\nالإجمالي: ${totalCustomPrice} ريال`);
   }
 
-  function changeQty(index, delta) {
+  function updateQty(index, delta) {
       if (delta > 0 && getTotalItemsCount() >= maxOrderLimit) {
-          alert('⚠️ عذراً، لا يمكن تجاوز الحد الأقصى (4 طلبات) لكل عميل!');
+          alert('⚠️ وصل للحد الأقصى للطلبات (4 أصناف)!');
           return;
       }
-
       cart[index].qty += delta;
       if (cart[index].qty <= 0) {
           cart.splice(index, 1);
@@ -682,166 +750,127 @@
       updateCartUI();
   }
 
-  function removeItem(index) {
+  function deleteCartItem(index) {
       cart.splice(index, 1);
       updateCartUI();
   }
 
   function updateCartUI() {
-      const cartList = document.getElementById('cartItemsList');
+      const listContainer = document.getElementById('cartItemsList');
+      const cartTotalElem = document.getElementById('cartTotal');
       const cartCountBadge = document.getElementById('cartCountBadge');
-      const cartTotal = document.getElementById('cartTotal');
       const shippingText = document.getElementById('shippingText');
       const shippingProgress = document.getElementById('shippingProgress');
 
-      let currentTotalQty = getTotalItemsCount();
+      let total = 0;
+      let totalQty = getTotalItemsCount();
+
+      cartCountBadge.innerText = `${totalQty} / ${maxOrderLimit} أصناف`;
 
       if (cart.length === 0) {
-          cartList.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
-          cartCountBadge.innerText = `0 / ${maxOrderLimit} أصناف`;
-          cartTotal.innerText = 'الإجمالي: 0 ر.س';
-          shippingText.innerText = `أضف بـ ${freeShippingThreshold}.00 ر.س للحصول على توصيل مجاني! 🚚`;
+          listContainer.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
+          cartTotalElem.innerText = 'الإجمالي: 0 ر.س';
+          shippingText.innerText = `أضف بـ ${freeShippingThreshold.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
           shippingProgress.style.width = '0%';
           return;
       }
 
       let html = '';
-      let grandTotal = 0;
-
       cart.forEach((item, index) => {
           let itemTotal = item.price * item.qty;
-          grandTotal += itemTotal;
-
+          total += itemTotal;
           html += `
               <div class="cart-item">
                   <div class="cart-item-info">
                       <div class="cart-item-name">${item.name}</div>
-                      <div class="cart-item-price">${item.price} ر.س × ${item.qty} = ${itemTotal} ر.س</div>
+                      <div class="cart-item-price">${item.price} ر.س x ${item.qty} = ${itemTotal} ر.س</div>
                   </div>
                   <div class="cart-controls">
-                      <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
-                      <span style="font-size:12px; font-weight:bold; color:#fff;">${item.qty}</span>
-                      <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
-                      <button class="delete-btn" onclick="removeItem(${index})">حذف 🗑️</button>
+                      <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
+                      <span>${item.qty}</span>
+                      <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
+                      <button class="delete-btn" onclick="deleteCartItem(${index})">حذف</button>
                   </div>
               </div>
           `;
       });
 
-      cartList.innerHTML = html;
-      cartCountBadge.innerText = `${currentTotalQty} / ${maxOrderLimit} أصناف`;
-      cartTotal.innerText = `الإجمالي: ${grandTotal} ر.س`;
+      listContainer.innerHTML = html;
+      cartTotalElem.innerText = `الإجمالي: ${total} ر.س`;
 
-      if(grandTotal >= freeShippingThreshold) {
-          shippingText.innerHTML = '🎉 **مبروك! طلبك يستحق توصيل مجاني!** 🚚';
+      // شريط التوصيل المجاني
+      if (total >= freeShippingThreshold) {
+          shippingText.innerText = '🎉 مبروك! حصلت على توصيل مجاني!';
           shippingProgress.style.width = '100%';
       } else {
-          let diff = freeShippingThreshold - grandTotal;
-          let percent = (grandTotal / freeShippingThreshold) * 100;
-          shippingText.innerText = `أضف بـ ${diff.toFixed(2)} ر.س أخرى للحصول على توصيل مجاني! 🚚`;
-          shippingProgress.style.width = `${percent}%`;
+          let diff = freeShippingThreshold - total;
+          let percentage = (total / freeShippingThreshold) * 100;
+          shippingText.innerText = `أضف بـ ${diff.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
+          shippingProgress.style.width = `${percentage}%`;
       }
   }
 
-  function checkoutWhatsApp() {
-      if(cart.length === 0) {
-          alert('السلة فارغة! يرجى إضافة عروض أو أطباق أولاً.');
+  function spinWheel() {
+      const codeInput = document.getElementById('userCode').value.trim();
+      const resultElem = document.getElementById('wheelResult');
+      const wheel = document.getElementById('wheel');
+
+      if (!codeInput) {
+          alert('يرجى إدخال كود السحب أولاً!');
           return;
       }
 
-      const deliveryType = document.getElementById('deliveryType').value;
-      const deliveryDay = document.getElementById('deliveryDay').value;
-      const deliveryTime = document.getElementById('deliveryTime').value;
+      const randomDegree = Math.floor(Math.random() * 360) + 1440; // 4 دورات على الأقل
+      wheel.style.transform = `rotate(${randomDegree}deg)`;
 
-      let message = `أهلاً، أريد حجز طلب من عروض The Delicious Dolma 🇸🇦:\n\n`;
-      let grandTotal = 0;
-
-      cart.forEach((item, index) => {
-          let itemTotal = item.price * item.qty;
-          grandTotal += itemTotal;
-          message += `${index + 1}. ${item.name}\n   الكمية: ${item.qty} | السعر: ${itemTotal} ريال\n`;
-      });
-
-      message += `\n📍 **تفاصيل التنسيق والموعد:**\n`;
-      message += `- طريقة الاستلام: ${deliveryType}\n`;
-      message += `- اليوم المختار: ${deliveryDay}\n`;
-      message += `- الفترة: ${deliveryTime}\n`;
-
-      if(grandTotal >= freeShippingThreshold) {
-          message += `\n🎁 **حالة التوصيل:** مجاني (تجاوز 150 ريال)`;
-      }
-
-      message += `\n💰 **الإجمالي النهائي:** ${grandTotal} ريال سعودي`;
-
-      let encodedUrl = `https://api.whatsapp.com/send/?phone=966559127217&text=${encodeURIComponent(message)}`;
-      window.open(encodedUrl, '_blank');
+      setTimeout(() => {
+          resultElem.innerHTML = '🎁 مبروك! حصلت على قسيمة خصم/مكافأة مع طلبك!';
+      }, 4000);
   }
 
   function shareOffer() {
-      let shareMsg = `🔥 نستقبل طلبات اليوم الوطني 96! 🇸🇦💚\n\nالطلب مفتوح طوال الأسبوع (من الأحد إلى السبت) مع أفضلية الحجز المبكر من اليوم الثلاثاء ✨\n⚠️ ملاحظة: الحد الأقصى 4 طلبات لكل عميل لضمان الجودة 🤤🍃\n\nتصفّح العروض واطلب مباشرة من هنا:`;
-      let whatsappShareUrl = `https://api.whatsapp.com/send/?text=${encodeURIComponent(shareMsg + '\n' + window.location.href)}`;
-      window.open(whatsappShareUrl, '_blank');
+      const text = encodeURIComponent('🔥 عروض اليوم الوطني 96 من The Delicious Dolma! أحلى ورق عنب وملفوف وفتة! اطلب الآن عبر الرابط: ' + window.location.href);
+      window.open(`https://wa.me/?text=${text}`, '_blank');
   }
 
-  // الأكواد المعتمدة للعجلة
-  let validCodes = JSON.parse(localStorage.getItem('dolmaValidCodes')) || [
-      'ND96-101', 'ND96-102', 'ND96-103', 'ND96-104', 'ND96-105',
-      'ND96-106', 'ND96-107', 'ND96-108', 'ND96-109', 'ND96-110',
-      'DOLMA-96A', 'DOLMA-96B', 'DOLMA-96C', 'DOLMA-96D', 'DOLMA-96E',
-      'SAUDI96', 'ROYAL96', 'KINGDOM96', 'GREEN96', 'GOLDEN96'
-  ];
-
-  let usedCodes = JSON.parse(localStorage.getItem('dolmaUsedCodes')) || [];
-  let isSpinning = false;
-
-  function spinWheel() {
-      const inputField = document.getElementById('userCode');
-      const codeInput = inputField.value.trim().toUpperCase();
-
-      if(!codeInput) {
-          alert('يرجى إدخال كود السحب أولاً لدوران العجلة!');
+  function checkoutWhatsApp() {
+      if (cart.length === 0) {
+          alert('السلة فارغة! أضف أطباقك المفضل أولاً.');
           return;
       }
 
-      if (usedCodes.includes(codeInput)) {
-          alert('❌ عذراً، هذا الكود تم استخدامه سابقاً!');
-          return;
+      const type = document.getElementById('deliveryType').value;
+      const day = document.getElementById('deliveryDay').value;
+      const time = document.getElementById('deliveryTime').value;
+
+      const isGift = document.getElementById('isGiftCheckbox').checked;
+      let giftInfo = '';
+
+      if (isGift) {
+          const rName = document.getElementById('giftRecipientName').value.trim();
+          const rPhone = document.getElementById('giftRecipientPhone').value.trim();
+          const cardMsg = document.getElementById('giftCardMessage').value.trim();
+
+          giftInfo = `\n\n🎁 *طلب إهداء:*\n- اسم المستلم: ${rName || 'غير محدد'}\n- رقم الجوال: ${rPhone || 'غير محدد'}\n- كرت الإهداء: ${cardMsg || 'بدون رسالة'}`;
       }
 
-      const codeIndex = validCodes.indexOf(codeInput);
-      if (codeIndex === -1) {
-          alert('❌ الكود غير صحيح! يرجى التأكد من الكود الممنوح لك.');
-          return;
-      }
+      let orderDetails = '*طلب جديد من The Delicious Dolma 🇸🇦*\n\n';
+      let total = 0;
 
-      if(isSpinning) return;
-      isSpinning = true;
+      cart.forEach((item, i) => {
+          let itemTotal = item.price * item.qty;
+          total += itemTotal;
+          orderDetails += `${i + 1}. ${item.name} | العدد: ${item.qty} | السعر: ${itemTotal} ر.س\n`;
+      });
 
-      usedCodes.push(codeInput);
-      localStorage.setItem('dolmaUsedCodes', JSON.stringify(usedCodes));
+      orderDetails += `\n💰 *الإجمالي:* ${total} ر.س`;
+      orderDetails += `\n🛵 *نوع الطلب:* ${type}`;
+      orderDetails += `\n📅 *الموعد المطلوب:* ${day} - (${time})`;
+      orderDetails += giftInfo;
 
-      inputField.disabled = true;
-      document.getElementById('spinButton').disabled = true;
-      document.getElementById('spinButton').style.opacity = '0.5';
-
-      const wheel = document.getElementById('wheel');
-      const degrees = 1800 + Math.floor(Math.random() * 360);
-      wheel.style.transform = `rotate(${degrees}deg)`;
-
-      const rewards = [
-          'قسيمة توصيل مجاني 🚚',
-          'قسيمة خصم 5% 🎉',
-          'قسيمة خصم 10% 🔥',
-          'قسيمة صحن فتة مجانية (أصغر حجم) 🍲',
-          'قسيمة خصم 5 ريال 🛵'
-      ];
-
-      setTimeout(() => {
-          const selectedReward = rewards[Math.floor(Math.random() * rewards.length)];
-          document.getElementById('wheelResult').innerHTML = `🎉 **مبروك!** حصلت على: <br><span style="color:#86efac; font-size:17px;">${selectedReward}</span><br><small style="color:#a3c2b0; font-size:11px;">احفظ لقطة الشاشة واستخدم القسيمة في طلبك القادم!</small>`;
-          alert(`🎉 مبروك!\nحصلت على: ${selectedReward}\n\nاحفظ اللقطة وقم بإبراز القسيمة للمتجر في طلبك القادم!`);
-          isSpinning = false;
-      }, 4000);
+      const whatsappNumber = '966553627855';
+      const encodedMsg = encodeURIComponent(orderDetails);
+      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, '_blank');
   }
 </script>
 
