@@ -15,7 +15,7 @@
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        body { background: var(--bg-dark); color: var(--text-main); display: flex; justify-content: center; padding: 12px; padding-bottom: 310px; }
+        body { background: var(--bg-dark); color: var(--text-main); display: flex; justify-content: center; padding: 12px; padding-bottom: 260px; }
         .app { width: 100%; max-width: 420px; background: var(--card-bg); border-radius: 24px; padding: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.9); border: 2px solid var(--national-gold); text-align: center; position: relative; }
         
         .promo-overlay {
@@ -117,8 +117,7 @@
         .product-info p { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
         
         .price-box { margin-top: 4px; display: flex; align-items: center; gap: 8px; }
-        .price { font-weight: bold; color: var(--national-gold); font-size: 16px; }
-        .old-price { text-decoration: line-through; color: #ef4444; font-size: 13px; }
+        .price { font-weight: bold; color: var(--national-gold); font-size: 13px; background: rgba(212,175,55,0.1); padding: 2px 8px; border-radius: 6px; border: 1px solid rgba(212,175,55,0.4); }
 
         .add-cart-btn { 
             background: linear-gradient(45deg, var(--national-green), #10b981); 
@@ -162,11 +161,6 @@
             z-index: 900;
             box-shadow: 0 -5px 20px rgba(0,0,0,0.8);
         }
-
-        .free-shipping-container { margin-bottom: 10px; text-align: right; }
-        .free-shipping-text { font-size: 11px; color: #86efac; font-weight: bold; margin-bottom: 4px; }
-        .progress-bar-bg { background: rgba(255,255,255,0.1); height: 8px; border-radius: 10px; overflow: hidden; border: 1px solid rgba(212,175,55,0.3); }
-        .progress-bar-fill { background: linear-gradient(90deg, var(--national-gold), #10b981); height: 100%; width: 0%; transition: width 0.4s ease; }
 
         .delivery-details-box {
             background: rgba(255,255,255,0.05);
@@ -265,7 +259,7 @@
         .delete-btn { background: #ef4444; color: #fff; border: none; padding: 3px 8px; border-radius: 6px; font-size: 11px; cursor: pointer; }
 
         .cart-action-bar { display: flex; justify-content: space-between; align-items: center; }
-        .cart-total { font-size: 15px; color: var(--national-gold); font-weight: bold; }
+        .cart-total { font-size: 13px; color: #86efac; font-weight: bold; }
 
         .send-whatsapp-btn {
             background: #25D366;
@@ -337,7 +331,7 @@
         <div style="font-size:48px; margin-bottom:10px;">🇸🇦💚</div>
         <h2>دام عزك يا وطن!</h2>
         <p>
-            أهلاً بكم في <span class="highlight">The Delicious Dolma</span> ✨<br>
+            أهلاً لكم في <span class="highlight">The Delicious Dolma</span> ✨<br>
             نستقبل طلباتكم ابتداءً من <b>اليوم 🤍✨</b><br>
             استقبال الطلبات مفتوح يومياً من <b>1:00 ظهراً إلى 10:00 مساءً</b> (الأحد - السبت).<br>
             <span class="highlight">💡 الأفضل والأولوية للحجز والتجهيز المبكر ابتداءً من اليوم الثلاثاء!</span>
@@ -376,11 +370,10 @@
             <h4>عرض الميكس الملكي ⭐</h4>
             <p>40 حبة ملفوف + 40 حبة ورق عنب</p>
             <div class="price-box">
-                <span class="price">96 ر.س</span>
-                <span class="old-price">110 ر.س</span>
+                <span class="price">السعر عند الطلب 📲</span>
             </div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('عرض الميكس الملكي (40 ملفوف + 40 ورق عنب)', 96)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('عرض الميكس الملكي (40 ملفوف + 40 ورق عنب)')">أضف للسلة 🛒</button>
     </div>
 
     <!-- عروض ورق العنب -->
@@ -390,27 +383,27 @@
         <div class="product-info">
             <h4>باقة 40 حبة</h4>
             <p>ورق عنب حامض وموزون</p>
-            <div class="price-box"><span class="price">50 ر.س</span></div>
+            <div class="price-box"><span class="price">السعر عند الطلب 📲</span></div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('باقة 40 حبة ورق عنب', 50)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('باقة 40 حبة ورق عنب')">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
         <div class="product-info">
             <h4>باقة 60 حبة</h4>
             <p>الأكثر طلباً للجمعات</p>
-            <div class="price-box"><span class="price">75 ر.س</span></div>
+            <div class="price-box"><span class="price">السعر عند الطلب 📲</span></div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('باقة 60 حبة ورق عنب', 75)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('باقة 60 حبة ورق عنب')">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
         <div class="product-info">
             <h4>باقة 80 حبة</h4>
             <p>باقة العزائم الفاخرة</p>
-            <div class="price-box"><span class="price">96 ر.س</span></div>
+            <div class="price-box"><span class="price">السعر عند الطلب 📲</span></div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('باقة 80 حبة ورق عنب', 96)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('باقة 80 حبة ورق عنب')">أضف للسلة 🛒</button>
     </div>
 
     <!-- عروض طبق الملفوف -->
@@ -421,11 +414,10 @@
             <h4>طبق ملفوف 40 حبة</h4>
             <p>طري ويذوب بالفم</p>
             <div class="price-box">
-                <span class="price">60 ر.س</span>
-                <span class="old-price">70 ر.س</span>
+                <span class="price">السعر عند الطلب 📲</span>
             </div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 40 حبة', 60)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 40 حبة')">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
@@ -433,11 +425,10 @@
             <h4>طبق ملفوف 60 حبة</h4>
             <p>مثالي للمشاركات والجمعات</p>
             <div class="price-box">
-                <span class="price">90 ر.س</span>
-                <span class="old-price">100 ر.س</span>
+                <span class="price">السعر عند الطلب 📲</span>
             </div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 60 حبة', 90)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 60 حبة')">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
@@ -445,11 +436,10 @@
             <h4>طبق ملفوف 80 حبة</h4>
             <p>حجم عائلي فاخر</p>
             <div class="price-box">
-                <span class="price">120 ر.س</span>
-                <span class="old-price">130 ر.س</span>
+                <span class="price">السعر عند الطلب 📲</span>
             </div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 80 حبة', 120)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('طبق ملفوف 80 حبة')">أضف للسلة 🛒</button>
     </div>
 
     <!-- عروض طبق الفتة -->
@@ -460,11 +450,10 @@
             <h4>طبق الفتة (الوسط) 👥</h4>
             <p>طبقات اللذاذة والصوص الخاص (تكفي من 4 إلى 6 أشخاص)</p>
             <div class="price-box">
-                <span class="price">30 ر.س</span>
-                <span class="old-price">35 ر.س</span>
+                <span class="price">السعر عند الطلب 📲</span>
             </div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('طبق فتة وسط (تكفي 4-6 أشخاص)', 30)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('طبق فتة وسط (تكفي 4-6 أشخاص)')">أضف للسلة 🛒</button>
     </div>
 
     <div class="product-card">
@@ -472,11 +461,10 @@
             <h4>طبق الفتة (الكبير) 👨‍👩‍👧‍👦</h4>
             <p>تكفي وتزيد أحبابك (تكفي لـ 8-10 صحون صغار)</p>
             <div class="price-box">
-                <span class="price">40 ر.س</span>
-                <span class="old-price">45 ر.س</span>
+                <span class="price">السعر عند الطلب 📲</span>
             </div>
         </div>
-        <button class="add-cart-btn" onclick="addToCart('طبق فتة كبير (تكفي 8-10 صحون)', 40)">أضف للسلة 🛒</button>
+        <button class="add-cart-btn" onclick="addToCart('طبق فتة كبير (تكفي 8-10 صحون)')">أضف للسلة 🛒</button>
     </div>
 
     <!-- قسم صمّم طبقك المفضل -->
@@ -487,48 +475,48 @@
         <div class="custom-group">
             <label class="custom-label">1️⃣ اختر نوع الطبق الأساسي والحجم:</label>
             <select id="customBaseDish" class="custom-select">
-                <option value="ورق عنب (40 حبة)" data-price="50">ورق عنب - 40 حبة (50 ر.س)</option>
-                <option value="ورق عنب (60 حبة)" data-price="75">ورق عنب - 60 حبة (75 ر.س)</option>
-                <option value="ورق عنب (80 حبة)" data-price="96">ورق عنب - 80 حبة (96 ر.س)</option>
-                <option value="ملفوف (40 حبة)" data-price="60">ملفوف - 40 حبة (60 ر.س)</option>
-                <option value="ملفوف (60 حبة)" data-price="90">ملفوف - 60 حبة (90 ر.س)</option>
-                <option value="ملفوف (80 حبة)" data-price="120">ملفوف - 80 حبة (120 ر.س)</option>
-                <option value="طبق فتة وسط (4-6 أشخاص)" data-price="30">طبق فتة وسط (30 ر.س)</option>
-                <option value="طبق فتة كبير (8-10 صحون)" data-price="40">طبق فتة كبير (40 ر.س)</option>
+                <option value="ورق عنب (40 حبة)">ورق عنب - 40 حبة</option>
+                <option value="ورق عنب (60 حبة)">ورق عنب - 60 حبة</option>
+                <option value="ورق عنب (80 حبة)">ورق عنب - 80 حبة</option>
+                <option value="ملفوف (40 حبة)">ملفوف - 40 حبة</option>
+                <option value="ملفوف (60 حبة)">ملفوف - 60 حبة</option>
+                <option value="ملفوف (80 حبة)">ملفوف - 80 حبة</option>
+                <option value="طبق فتة وسط (4-6 أشخاص)">طبق فتة وسط</option>
+                <option value="طبق فتة كبير (8-10 صحون)">طبق فتة كبير</option>
             </select>
         </div>
 
         <div class="custom-group">
             <label class="custom-label">2️⃣ اختر طريقة التقديم والتغليف:</label>
             <select id="customPackage" class="custom-select">
-                <option value="البوكس المعتاد" data-price="0">البوكس المعتاد (مجاناً)</option>
-                <option value="صحن خاص فاخر" data-price="15">صحن خاص فاخر (+15 ر.س)</option>
-                <option value="توزيعات أفراد صحون صغيرة (8-10 صحون)" data-price="10">توزيعات أفراد صحون صغيرة (+10 ر.س)</option>
+                <option value="البوكس المعتاد">البوكس المعتاد</option>
+                <option value="صحن خاص فاخر">صحن خاص فاخر</option>
+                <option value="توزيعات أفراد صحون صغيرة (8-10 صحون)">توزيعات أفراد صحون صغيرة</option>
             </select>
         </div>
 
         <div class="custom-group">
-            <label class="custom-label">3️⃣ اختر إضافات التزيين والتغطيات (+1 ر.س لكل إضافة):</label>
+            <label class="custom-label">3️⃣ اختر إضافات التزيين والتغطيات:</label>
             <div class="checkbox-grid">
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="دبس الرمان" data-price="1"> دبس الرمان (+1 ر.س)</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="خبز محمص" data-price="1"> خبز محمص (+1 ر.س)</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="صوص الروب والنعناع" data-price="1"> صوص روب ونعناع (+1 ر.س)</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="حبات الرمان الطازجة" data-price="1"> حبات رمان (+1 ر.س)</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="شرائح الليمون" data-price="1"> شرائح ليمون (+1 ر.س)</label>
-                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="بصل مقلي وشبس" data-price="1"> بصل مقلي وشبس (+1 ر.س)</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="دبس الرمان"> دبس الرمان</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="خبز محمص"> خبز محمص</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="صوص الروب والنعناع"> صوص روب ونعناع</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="حبات الرمان الطازجة"> حبات رمان</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="شرائح الليمون"> شرائح ليمون</label>
+                <label class="checkbox-item"><input type="checkbox" class="topping-check" value="بصل مقلي وشبس"> بصل مقلي وشبس</label>
             </div>
         </div>
 
-        <button class="custom-add-btn" onclick="addCustomToCart()">حساب وإضافة الطبق المخصص للسلة 🛒</button>
+        <button class="custom-add-btn" onclick="addCustomToCart()">إضافة الطبق المخصص للسلة 🛒</button>
     </div>
 
     <!-- عجلة المكافآت -->
     <div class="wheel-box">
-        <h3 style="color:var(--national-gold); font-size: 17px;">🎡 عجلة مكافآت اليوم الوطني</h3>
-        <p class="wheel-instruction">أدخل الكود 🔑 ➔ أدِر العجلة 🎡 ➔ احصل على قسيمة مكافأة لطلبك القادم! 🎁</p>
+        <h3 style="color:var(--national-gold); font-size: 17px;">🎡 عجلة مفاجآت اليوم الوطني</h3>
+        <p class="wheel-instruction">أدخل الكود 🔑 ➔ أدِر العجلة 🎡 ➔ احصل على هدية مميزة لطلبك القادم! 🎁</p>
         
         <input type="text" id="userCode" class="code-input" placeholder="أدخل كود السحب هنا...">
-        <button class="spin-btn" id="spinButton" onclick="spinWheel()">أدِر العجلة لتربح القسيمة 🎁</button>
+        <button class="spin-btn" id="spinButton" onclick="spinWheel()">أدِر العجلة لتربح المفاجأة 🎁</button>
 
         <div class="wheel-container">
             <div class="arrow"></div>
@@ -552,14 +540,6 @@
 
 <!-- شريط السلة التفاعلي المتقدم -->
 <div class="cart-drawer">
-    <!-- شريط تقدم التوصيل المجاني (150 ريال) -->
-    <div class="free-shipping-container">
-        <div class="free-shipping-text" id="shippingText">أضف بـ 150.00 ر.س للحصول على توصيل مجاني! 🚚</div>
-        <div class="progress-bar-bg">
-            <div class="progress-bar-fill" id="shippingProgress"></div>
-        </div>
-    </div>
-
     <!-- تفاصيل التوصيل والاستلام والمواعيد -->
     <div class="delivery-details-box">
         <select id="deliveryType" class="delivery-input">
@@ -596,7 +576,7 @@
     <div class="gift-toggle-container">
         <label class="gift-checkbox-label">
             <input type="checkbox" id="isGiftCheckbox" onchange="toggleGiftFields()">
-            🎁 أرسل الطلب كـ "إهداء لشخص آخر" (بدون إظهار الأسعار)
+            🎁 أرسل الطلب كـ "إهداء لشخص آخر"
         </label>
         <div class="gift-fields" id="giftFields">
             <input type="text" id="giftRecipientName" class="gift-input" placeholder="اسم المهدَى إليه...">
@@ -615,7 +595,7 @@
     </div>
 
     <div class="cart-action-bar">
-        <div class="cart-total" id="cartTotal">الإجمالي: 0 ر.س</div>
+        <div class="cart-total" id="cartTotal">التسعير: عند الإرسال بالواتساب ✨</div>
         <button class="send-whatsapp-btn" onclick="checkoutWhatsApp()">إرسال الطلب للواتساب 📲</button>
     </div>
 </div>
@@ -628,7 +608,6 @@
 <script>
   var audio = document.getElementById('national-anthem');
   let cart = [];
-  const freeShippingThreshold = 150;
   const maxOrderLimit = 4;
 
   document.getElementById('startBtn').addEventListener('click', function() {
@@ -690,7 +669,7 @@
       return cart.reduce((sum, item) => sum + item.qty, 0);
   }
 
-  function addToCart(name, price) {
+  function addToCart(name) {
       if (getTotalItemsCount() >= maxOrderLimit) {
           alert('⚠️ تنبيه: الحد الأقصى المسموح به هو 4 أطباق/طلبات فقط لكل عميل لضمان أعلى جودة وإتقان!');
           return;
@@ -700,7 +679,7 @@
       if(existingIndex > -1) {
           cart[existingIndex].qty += 1;
       } else {
-          cart.push({ name: name, price: price, qty: 1 });
+          cart.push({ name: name, qty: 1 });
       }
       updateCartUI();
   }
@@ -713,166 +692,150 @@
 
       const baseDishSelect = document.getElementById('customBaseDish');
       const baseDishName = baseDishSelect.value;
-      const baseDishPrice = parseFloat(baseDishSelect.options[baseDishSelect.selectedIndex].getAttribute('data-price'));
 
       const packageSelect = document.getElementById('customPackage');
       const packageName = packageSelect.value;
-      const packagePrice = parseFloat(packageSelect.options[packageSelect.selectedIndex].getAttribute('data-price'));
 
       let toppingNames = [];
-      let toppingsTotalPrice = 0;
-
       const checkboxes = document.querySelectorAll('.topping-check:checked');
       checkboxes.forEach((cb) => {
           toppingNames.push(cb.value);
-          toppingsTotalPrice += parseFloat(cb.getAttribute('data-price'));
       });
 
-      let totalCustomPrice = baseDishPrice + packagePrice + toppingsTotalPrice;
       let details = `${baseDishName} | تغليف: ${packageName}`;
       if(toppingNames.length > 0) {
           details += ` | إضافات: ${toppingNames.join(', ')}`;
       }
 
-      cart.push({ name: details, price: totalCustomPrice, qty: 1 });
+      cart.push({ name: details, qty: 1 });
       updateCartUI();
   }
 
-  function updateQty(index, delta) {
-      if (delta > 0 && getTotalItemsCount() >= maxOrderLimit) {
-          alert('⚠️ وصل للحد الأقصى للطلبات (4 أصناف)!');
+  function changeQty(index, change) {
+      if (change > 0 && getTotalItemsCount() >= maxOrderLimit) {
+          alert('⚠️ تنبيه: الحد الأقصى المسموح به هو 4 أطباق/طلبات فقط لكل عميل!');
           return;
       }
-      cart[index].qty += delta;
+      cart[index].qty += change;
       if (cart[index].qty <= 0) {
           cart.splice(index, 1);
       }
       updateCartUI();
   }
 
-  function deleteCartItem(index) {
+  function removeFromCart(index) {
       cart.splice(index, 1);
       updateCartUI();
   }
 
   function updateCartUI() {
-      const listContainer = document.getElementById('cartItemsList');
-      const cartTotalElem = document.getElementById('cartTotal');
-      const cartCountBadge = document.getElementById('cartCountBadge');
-      const shippingText = document.getElementById('shippingText');
-      const shippingProgress = document.getElementById('shippingProgress');
+      const listEl = document.getElementById('cartItemsList');
+      const totalEl = document.getElementById('cartTotal');
+      const countBadge = document.getElementById('cartCountBadge');
 
-      let total = 0;
-      let totalQty = getTotalItemsCount();
-
-      cartCountBadge.innerText = `${totalQty} / ${maxOrderLimit} أصناف`;
+      const totalCount = getTotalItemsCount();
+      countBadge.innerText = `${totalCount} / ${maxOrderLimit} أصناف`;
 
       if (cart.length === 0) {
-          listContainer.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
-          cartTotalElem.innerText = 'الإجمالي: 0 ر.س';
-          shippingText.innerText = `أضف بـ ${freeShippingThreshold.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
-          shippingProgress.style.width = '0%';
+          listEl.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
+          totalEl.innerText = 'التسعير: عند الإرسال بالواتساب ✨';
           return;
       }
 
-      let html = '';
+      listEl.innerHTML = '';
+
       cart.forEach((item, index) => {
-          let itemTotal = item.price * item.qty;
-          total += itemTotal;
-          html += `
-              <div class="cart-item">
-                  <div class="cart-item-info">
-                      <div class="cart-item-name">${item.name}</div>
-                      <div class="cart-item-price">${item.price} ر.س x ${item.qty} = ${itemTotal} ر.س</div>
-                  </div>
-                  <div class="cart-controls">
-                      <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
-                      <span>${item.qty}</span>
-                      <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
-                      <button class="delete-btn" onclick="deleteCartItem(${index})">حذف</button>
-                  </div>
+          const itemEl = document.createElement('div');
+          itemEl.className = 'cart-item';
+          itemEl.innerHTML = `
+              <div class="cart-item-info">
+                  <div class="cart-item-name">${item.name}</div>
+                  <div class="cart-item-price">العدد: ${item.qty} (السعر عند الطلب)</div>
+              </div>
+              <div class="cart-controls">
+                  <button class="qty-btn" onclick="changeQty(${index}, -1)">-</button>
+                  <span style="font-size:12px; color:#fff;">${item.qty}</span>
+                  <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                  <button class="delete-btn" onclick="removeFromCart(${index})">حذف</button>
               </div>
           `;
+          listEl.appendChild(itemEl);
       });
 
-      listContainer.innerHTML = html;
-      cartTotalElem.innerText = `الإجمالي: ${total} ر.س`;
-
-      // شريط التوصيل المجاني
-      if (total >= freeShippingThreshold) {
-          shippingText.innerText = '🎉 مبروك! حصلت على توصيل مجاني!';
-          shippingProgress.style.width = '100%';
-      } else {
-          let diff = freeShippingThreshold - total;
-          let percentage = (total / freeShippingThreshold) * 100;
-          shippingText.innerText = `أضف بـ ${diff.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
-          shippingProgress.style.width = `${percentage}%`;
-      }
+      totalEl.innerText = 'التسعير: يتم تأكيد السعر عبر الواتساب 📲';
   }
 
+  // إدارة عجلة المكافآت
+  let hasSpun = false;
   function spinWheel() {
       const codeInput = document.getElementById('userCode').value.trim();
-      const resultElem = document.getElementById('wheelResult');
-      const wheel = document.getElementById('wheel');
+      const resultEl = document.getElementById('wheelResult');
 
       if (!codeInput) {
           alert('يرجى إدخال كود السحب أولاً!');
           return;
       }
 
-      const randomDegree = Math.floor(Math.random() * 360) + 1440; // 4 دورات على الأقل
-      wheel.style.transform = `rotate(${randomDegree}deg)`;
+      if (hasSpun) {
+          alert('لقد قمت بإدارة العجلة واستخدام الكود بالفعل!');
+          return;
+      }
+
+      hasSpun = true;
+      const wheel = document.getElementById('wheel');
+      const randomDegrees = 1800 + Math.floor(Math.random() * 360);
+      wheel.style.transform = `rotate(${randomDegrees}deg)`;
 
       setTimeout(() => {
-          resultElem.innerHTML = '🎁 مبروك! حصلت على قسيمة خصم/مكافأة مع طلبك!';
+          resultEl.innerHTML = '🎁 مبروك! ربحت إضافة مجانية لطلبك القادم 🎉<br><small style="color:#fff;">(تم حفظ كود السحب مع طلبك)</small>';
       }, 4000);
   }
 
   function shareOffer() {
-      const text = encodeURIComponent('🔥 عروض اليوم الوطني 96 من The Delicious Dolma! أحلى ورق عنب وملفوف وفتة! اطلب الآن عبر الرابط: ' + window.location.href);
-      window.open(`https://wa.me/?text=${text}`, '_blank');
+      const text = encodeURIComponent('✨ لا تفوّت عروض اليوم الوطني المميزة من The Delicious Dolma! 🇸🇦😋\nاطلب الآن واستمتع بالطعم الحامض الموزون:');
+      const url = encodeURIComponent(window.location.href);
+      window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
   }
 
   function checkoutWhatsApp() {
       if (cart.length === 0) {
-          alert('السلة فارغة! أضف أطباقك المفضل أولاً.');
+          alert('السلة فارغة! أضف بعض الأطباق أولاً.');
           return;
       }
 
-      const type = document.getElementById('deliveryType').value;
-      const day = document.getElementById('deliveryDay').value;
-      const time = document.getElementById('deliveryTime').value;
-
+      const deliveryType = document.getElementById('deliveryType').value;
+      const deliveryDay = document.getElementById('deliveryDay').value;
+      const deliveryTime = document.getElementById('deliveryTime').value;
       const isGift = document.getElementById('isGiftCheckbox').checked;
-      let giftInfo = '';
 
-      if (isGift) {
-          const rName = document.getElementById('giftRecipientName').value.trim();
-          const rPhone = document.getElementById('giftRecipientPhone').value.trim();
-          const cardMsg = document.getElementById('giftCardMessage').value.trim();
+      let message = `*طلب استفسار وتأكيد من متجر The Delicious Dolma 🇸🇦🍃*\n\n`;
+      message += `*تفاصيل الطلب:*\n`;
 
-          giftInfo = `\n\n🎁 *طلب إهداء:*\n- اسم المستلم: ${rName || 'غير محدد'}\n- رقم الجوال: ${rPhone || 'غير محدد'}\n- كرت الإهداء: ${cardMsg || 'بدون رسالة'}`;
-      }
-
-      let orderDetails = '*طلب جديد من The Delicious Dolma 🇸🇦*\n\n';
-      let total = 0;
-
-      cart.forEach((item, i) => {
-          let itemTotal = item.price * item.qty;
-          total += itemTotal;
-          orderDetails += `${i + 1}. ${item.name} | العدد: ${item.qty} | السعر: ${itemTotal} ر.س\n`;
+      cart.forEach((item, index) => {
+          message += `${index + 1}. ${item.name}\n   • الكمية: ${item.qty}\n`;
       });
 
-      orderDetails += `\n💰 *الإجمالي:* ${total} ر.س`;
-      orderDetails += `\n🛵 *نوع الطلب:* ${type}`;
-      orderDetails += `\n📅 *الموعد المطلوب:* ${day} - (${time})`;
-      orderDetails += giftInfo;
+      message += `\n*حالة السعر:* بانتظار تحديد وإرسال الإجمالي عبر الواتساب 💬\n`;
 
-      const whatsappNumber = '966553627855';
-      const encodedMsg = encodeURIComponent(orderDetails);
-      window.open(`https://wa.me/${whatsappNumber}?text=${encodedMsg}`, '_blank');
+      message += `\n*تفاصيل الاستلام:*`;
+      message += `\n• طريقة الطلب: ${deliveryType}`;
+      message += `\n• اليوم المحدد: ${deliveryDay}`;
+      message += `\n• الوقت المفضل: ${deliveryTime}\n`;
+
+      if (isGift) {
+          const recipientName = document.getElementById('giftRecipientName').value || 'غير محدد';
+          const recipientPhone = document.getElementById('giftRecipientPhone').value || 'غير محدد';
+          const cardMessage = document.getElementById('giftCardMessage').value || 'بدون رسالة';
+
+          message += `\n🎁 *بيانات الإهداء (طلب خاص):*`;
+          message += `\n• اسم المستلم: ${recipientName}`;
+          message += `\n• رقم جوال المستلم: ${recipientPhone}`;
+          message += `\n• نص الإهداء: ${cardMessage}\n`;
+      }
+
+      const encodedMessage = encodeURIComponent(message);
+      window.open(`https://wa.me/0553627855?text=${encodedMessage}`, '_blank');
   }
 </script>
-
 </body>
 </html>
