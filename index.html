@@ -132,7 +132,6 @@
             flex-shrink: 0; 
         }
 
-        /* تخصيص الطبق */
         .customizer-box {
             background: rgba(0, 0, 0, 0.4);
             border-radius: 18px;
@@ -152,7 +151,6 @@
 
         .custom-add-btn { width: 100%; background: var(--national-gold); color: #000; border: none; padding: 12px; border-radius: 12px; font-weight: bold; font-size: 14px; cursor: pointer; margin-top: 10px; }
 
-        /* شريط السلة */
         .cart-drawer {
             position: fixed;
             bottom: 0; left: 0; right: 0;
@@ -189,7 +187,6 @@
             width: 100%;
         }
 
-        /* خيار الإهداء */
         .gift-toggle-container {
             background: rgba(212, 175, 55, 0.1);
             border: 1px dashed var(--national-gold);
@@ -292,6 +289,23 @@
             cursor: pointer;
             width: 100%;
             margin-top: 15px;
+        }
+
+        .support-btn {
+            background: rgba(37, 211, 102, 0.15);
+            color: #25D366;
+            border: 1px solid #25D366;
+            padding: 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
         }
 
         .wheel-box { background: rgba(0,0,0,0.4); border-radius: 18px; padding: 15px; border: 1px solid var(--national-gold); margin-top: 20px; }
@@ -539,6 +553,9 @@
 
     <!-- زر مشاركة العرض -->
     <button class="share-btn" onclick="shareOffer()">📢 شارك هذا العرض المباشر مع أصدقائك عبر الواتساب 📲</button>
+    
+    <!-- زر الدعم الفني المباشر -->
+    <button class="support-btn" onclick="contactSupport()">💬 الدعم الفني والاستفسارات المباشرة عبر الواتساب 📲</button>
 
     <!-- شريط حقوق المطور التسويقي -->
     <div class="developer-footer">
@@ -562,7 +579,7 @@
 
     <!-- تفاصيل التوصيل والاستلام والمواعيد -->
     <div class="delivery-details-box">
-        <select id="deliveryType" class="delivery-input">
+        <select id="deliveryType" class="delivery-input" onchange="updateCartUI()">
             <option value="توصيل للمنزل">🚗 توصيل للمنزل</option>
             <option value="استلام من الفرع">🏪 استلام من الفرع</option>
         </select>
@@ -629,6 +646,7 @@
   var audio = document.getElementById('national-anthem');
   let cart = [];
   const freeShippingThreshold = 150;
+  const deliveryFeeConst = 15;
   const maxOrderLimit = 4;
   let hasSpun = false;
 
@@ -663,7 +681,6 @@
       }
   }
 
-  // العداد التنازلي
   const endDate = new Date('September 26, 2026 23:59:59').getTime();
 
   const timerInterval = setInterval(function() {
@@ -735,13 +752,13 @@
           details += ` | إضافات: ${toppingNames.join(', ')}`;
       }
 
-      cart.push({ name: details, price: totalCustomPrice, qty: 1 });
-      updateCartUI();
+      const customItemName = `طبق مخصص: (${details})`;
+      addToCart(customItemName, totalCustomPrice);
   }
 
-  function updateQty(index, change) {
+  function updateQuantity(index, change) {
       if (change > 0 && getTotalItemsCount() >= maxOrderLimit) {
-          alert('⚠️ تنبيه: الحد الأقصى المسموح به هو 4 أطباق/طلبات فقط لكل عميل!');
+          alert('⚠️ تنبيه: الحد الأقصى المسموح به هو 4 أطباق فقط لكل عميل!');
           return;
       }
 
@@ -752,100 +769,126 @@
       updateCartUI();
   }
 
-  function deleteCartItem(index) {
+  function removeFromCart(index) {
       cart.splice(index, 1);
       updateCartUI();
   }
 
-  function calculateSubtotal() {
-      return cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
-  }
-
   function updateCartUI() {
-      const listEl = document.getElementById('cartItemsList');
+      const cartList = document.getElementById('cartItemsList');
       const totalEl = document.getElementById('cartTotal');
-      const countEl = document.getElementById('cartCountBadge');
-      const progressFill = document.getElementById('shippingProgress');
+      const badgeEl = document.getElementById('cartCountBadge');
       const shippingText = document.getElementById('shippingText');
+      const shippingProgress = document.getElementById('shippingProgress');
+      const deliveryType = document.getElementById('deliveryType').value;
 
-      const totalItems = getTotalItemsCount();
-      countEl.innerText = `${totalItems} / ${maxOrderLimit} أصناف`;
+      let subtotal = 0;
+      let totalQty = getTotalItemsCount();
+
+      badgeEl.innerText = `${totalQty} / ${maxOrderLimit} أصناف`;
 
       if (cart.length === 0) {
-          listEl.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
+          cartList.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
           totalEl.innerText = 'الإجمالي: 0 ر.س';
-          progressFill.style.width = '0%';
           shippingText.innerText = `أضف بـ ${freeShippingThreshold.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
+          shippingProgress.style.width = '0%';
           return;
       }
 
-      let listHTML = '';
-      let subtotal = calculateSubtotal();
-
+      cartList.innerHTML = '';
       cart.forEach((item, index) => {
-          listHTML += `
+          const itemTotal = item.price * item.qty;
+          subtotal += itemTotal;
+
+          cartList.innerHTML += `
               <div class="cart-item">
                   <div class="cart-item-info">
                       <div class="cart-item-name">${item.name}</div>
-                      <div class="cart-item-price">${item.price * item.qty} ر.س (${item.price} ر.س / للحبة)</div>
+                      <div class="cart-item-price">${item.price} ر.س × ${item.qty} = ${itemTotal} ر.س</div>
                   </div>
                   <div class="cart-controls">
-                      <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
-                      <span style="color:#fff; font-size:12px; font-weight:bold;">${item.qty}</span>
-                      <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
-                      <button class="delete-btn" onclick="deleteCartItem(${index})">حذف</button>
+                      <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
+                      <span style="font-size:12px; color:#fff; font-weight:bold;">${item.qty}</span>
+                      <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                      <button class="delete-btn" onclick="removeFromCart(${index})">حذف</button>
                   </div>
               </div>
           `;
       });
 
-      listEl.innerHTML = listHTML;
-      totalEl.innerText = `الإجمالي: ${subtotal} ر.س`;
+      let finalTotal = subtotal;
+      let shippingCost = 0;
 
-      // تحديث شريط التوصيل المجاني
-      let progressPercent = Math.min((subtotal / freeShippingThreshold) * 100, 100);
-      progressFill.style.width = `${progressPercent}%`;
-
-      if (subtotal >= freeShippingThreshold) {
-          shippingText.innerText = '🎉 مبروك! حصلت على توصيل مجاني!';
+      if (deliveryType === "توصيل للمنزل") {
+          if (subtotal >= freeShippingThreshold) {
+              shippingCost = 0;
+              shippingText.innerText = '🎉 مبروك! حصلت على توصيل مجاني لطلبك! 🚚✨';
+              shippingProgress.style.width = '100%';
+          } else {
+              shippingCost = deliveryFeeConst;
+              const remaining = freeShippingThreshold - subtotal;
+              const percent = (subtotal / freeShippingThreshold) * 100;
+              shippingText.innerText = `متبقي ${remaining.toFixed(2)} ر.س للحصول على التوصيل المجاني! 🚚`;
+              shippingProgress.style.width = `${percent}%`;
+          }
       } else {
-          let remaining = freeShippingThreshold - subtotal;
-          shippingText.innerText = `أضف بـ ${remaining.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
+          shippingCost = 0;
+          shippingText.innerText = '🏪 الاستلام من الفرع مجاني بدون رسوم توصيل!';
+          shippingProgress.style.width = '100%';
       }
+
+      finalTotal = subtotal + shippingCost;
+      totalEl.innerText = `الإجمالي: ${finalTotal} ر.س`;
   }
 
   function spinWheel() {
-      const userCode = document.getElementById('userCode').value.trim();
-      const resultEl = document.getElementById('wheelResult');
-
-      if (!userCode) {
-          alert('يرجى إدخال كود السحب أولاً! 🔑');
+      const codeInput = document.getElementById('userCode').value.trim();
+      if (!codeInput) {
+          alert('يرجى إدخال كود السحب أولاً لدوران العجلة!');
           return;
       }
 
       if (hasSpun) {
-          alert('لقد قمت بإدارة العجلة بالفعل! 🎡');
+          alert('عذراً، لقد استخدمت فرصة تدوير العجلة لهذا الكود!');
           return;
       }
 
       const wheel = document.getElementById('wheel');
-      const degrees = 1800 + Math.floor(Math.random() * 360);
-      wheel.style.transform = `rotate(${degrees}deg)`;
+      const resultEl = document.getElementById('wheelResult');
+      
+      const prizes = [
+          '🎁 خصم 10% على الطلب القادم',
+          '🍃 طبق فتة مجاني مع الطلب القادم',
+          '🚚 توصيل مجاني لطلبك القادم',
+          '🥤 مشروب مجاني مع الطلب',
+          '⭐ خصم 15% للطلب القادم'
+      ];
+
+      const randomIndex = Math.floor(Math.random() * prizes.length);
+      const degreesPerSegment = 72;
+      const targetDegree = 360 * 5 + (360 - (randomIndex * degreesPerSegment + degreesPerSegment / 2));
+
+      wheel.style.transform = `rotate(${targetDegree}deg)`;
       hasSpun = true;
+      document.getElementById('spinButton').disabled = true;
 
       setTimeout(() => {
-          resultEl.innerText = '🎁 مبروك! كسبت خصم 10% لطلبك القادم (الكود معتمد)!';
+          resultEl.innerText = `🎉 مبروك! فزت بـ: ${prizes[randomIndex]}`;
       }, 4000);
   }
 
   function shareOffer() {
-      const shareText = encodeURIComponent("✨ عروض اليوم الوطني 96 من The Delicious Dolma! 🍃\nلذيذ، حامض، وموزون 😋\nاطلب الآن من الرابط المباشر!");
-      window.open(`https://api.whatsapp.com/send/?phone=559127217&text=${shareText}&type=phone_number&app_absent=0&wame_ctl=1`, '_blank');
+      const text = encodeURIComponent('🇸🇦 عروض اليوم الوطني 96 المذهلة من The Delicious Dolma! 🍃😋\nأطباق ورق عنب وملفوف وفتة حامضة وموزونة!\nاحجز طلبك الآن عبر الرابط المباشر 👇✨');
+      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
+  }
+
+  function contactSupport() {
+      window.open('https://api.whatsapp.com/send/?phone=0553627855&text&type=phone_number&app_absent=0', '_blank');
   }
 
   function checkoutWhatsApp() {
       if (cart.length === 0) {
-          alert('السلة فارغة! يرجى إضافة أطباق أولاً 🛒');
+          alert('السلة فارغة! يرجى إضافة أصناف أولاً قبل إرسال الطلب.');
           return;
       }
 
@@ -854,32 +897,59 @@
       const deliveryTime = document.getElementById('deliveryTime').value;
 
       const isGift = document.getElementById('isGiftCheckbox').checked;
-      const recipientName = document.getElementById('giftRecipientName').value;
-      const recipientPhone = document.getElementById('giftRecipientPhone').value;
-      const cardMessage = document.getElementById('giftCardMessage').value;
-
-      let subtotal = calculateSubtotal();
-      let msg = `*طلب جديد من متجر The Delicious Dolma 🇸🇦🍃*\n\n`;
-      msg += `*تفاصيل الأصناف:*\n`;
-
-      cart.forEach((item, idx) => {
-          msg += `${idx + 1}. ${item.name} × ${item.qty} = ${item.price * item.qty} ر.س\n`;
-      });
-
-      msg += `\n*الإجمالي:* ${subtotal} ر.س\n`;
-      msg += `*طريقة الاستلام:* ${deliveryType}\n`;
-      msg += `*اليوم المحدد:* ${deliveryDay}\n`;
-      msg += `*الوقت المحدد:* ${deliveryTime}\n`;
+      let giftInfoText = '';
 
       if (isGift) {
-          msg += `\n🎁 *بيانات الإهداء:*\n`;
-          msg += `- اسم المستلم: ${recipientName || 'غير محدد'}\n`;
-          msg += `- رقم المستلم: ${recipientPhone || 'غير محدد'}\n`;
-          msg += `- كرت الإهداء: ${cardMessage || 'بدون رسالة'}\n`;
+          const rName = document.getElementById('giftRecipientName').value.trim() || 'غير محدد';
+          const rPhone = document.getElementById('giftRecipientPhone').value.trim() || 'غير محدد';
+          const rMsg = document.getElementById('giftCardMessage').value.trim() || 'بدون رسالة';
+
+          giftInfoText = `\n🎁 *تفاصيل الإهداء:*` +
+                         `\n• اسم المستلم: ${rName}` +
+                         `\n• جوال المستلم: ${rPhone}` +
+                         `\n• كرت الإهداء: "${rMsg}"\n`;
       }
 
-      const encodedMsg = encodeURIComponent(msg);
-      window.open(`https://api.whatsapp.com/send/?phone=559127217&text=${encodedMsg}&type=phone_number&app_absent=0&wame_ctl=1`, '_blank');
+      let orderText = `*طلب جديد من متجر The Delicious Dolma 🍃🇸🇦*\n\n`;
+      orderText += `📋 *تفاصيل الطلب:*\n`;
+
+      let subtotal = 0;
+      cart.forEach((item, i) => {
+          const itemTotal = item.price * item.qty;
+          subtotal += itemTotal;
+          orderText += `${i + 1}. ${item.name} (${item.qty}x) = ${itemTotal} ر.س\n`;
+      });
+
+      let shippingCostText = "";
+      let finalTotal = subtotal;
+
+      if (deliveryType === "توصيل للمنزل") {
+          if (subtotal >= freeShippingThreshold) {
+              shippingCostText = "مجاني (تجاوز 150 ر.س) 🎉";
+          } else {
+              shippingCostText = "15 ر.س";
+              finalTotal += deliveryFeeConst;
+          }
+      } else {
+          shippingCostText = "مجاني (استلام من الفرع) 🏪";
+      }
+
+      orderText += `\n💵 *مجموع المنتجات:* ${subtotal} ر.س`;
+      orderText += `\n🚚 *رسوم التوصيل:* ${shippingCostText}`;
+      orderText += `\n💰 *الإجمالي النهائي:* ${finalTotal} ر.س`;
+
+      orderText += `\n\n🚚 *نوع الطلب:* ${deliveryType}`;
+      orderText += `\n📅 *تاريخ/يوم الاستلام:* ${deliveryDay}`;
+      orderText += `\n⏰ *وقت التوصيل/الاستلام:* ${deliveryTime}`;
+
+      if (isGift) {
+          orderText += giftInfoText;
+      }
+
+      orderText += `\n\n✨ شكراً لاختياركم The Delicious Dolma!`;
+
+      // رابط إرسال الطلبات المباشر المحدث
+      window.open(`https://api.whatsapp.com/send/?phone=559127217&text=${encodeURIComponent(orderText)}&type=phone_number&app_absent=0&wame_ctl=1`, '_blank');
   }
 </script>
 
