@@ -737,32 +737,29 @@
       const packageName = packageSelect.value;
       const packagePrice = parseFloat(packageSelect.options[packageSelect.selectedIndex].getAttribute('data-price'));
 
-      let toppingNames = [];
-      let toppingsTotalPrice = 0;
-
+      let selectedToppings = [];
       const checkboxes = document.querySelectorAll('.topping-check:checked');
-      checkboxes.forEach((cb) => {
-          toppingNames.push(cb.value);
-          toppingsTotalPrice += parseFloat(cb.getAttribute('data-price'));
+      checkboxes.forEach(cb => {
+          selectedToppings.push(cb.value);
       });
 
-      let totalCustomPrice = baseDishPrice + packagePrice + toppingsTotalPrice;
-      let details = `${baseDishName} | تغليف: ${packageName}`;
-      if(toppingNames.length > 0) {
-          details += ` | إضافات: ${toppingNames.join(', ')}`;
+      let fullDishName = `طبقي الخاص: ${baseDishName} - (${packageName})`;
+      if (selectedToppings.length > 0) {
+          fullDishName += ` [التغطيات: ${selectedToppings.join(', ')}]`;
       }
 
-      const customItemName = `طبق مخصص: (${details})`;
-      addToCart(customItemName, totalCustomPrice);
+      const totalPrice = baseDishPrice + packagePrice;
+
+      addToCart(fullDishName, totalPrice);
   }
 
-  function updateQuantity(index, change) {
-      if (change > 0 && getTotalItemsCount() >= maxOrderLimit) {
-          alert('⚠️ تنبيه: الحد الأقصى المسموح به هو 4 أطباق فقط لكل عميل!');
+  function updateQuantity(index, delta) {
+      if (delta > 0 && getTotalItemsCount() >= maxOrderLimit) {
+          alert('⚠️ الحد الأقصى المسموح به هو 4 أطباق فقط!');
           return;
       }
-
-      cart[index].qty += change;
+      
+      cart[index].qty += delta;
       if (cart[index].qty <= 0) {
           cart.splice(index, 1);
       }
@@ -775,183 +772,160 @@
   }
 
   function updateCartUI() {
-      const cartList = document.getElementById('cartItemsList');
-      const totalEl = document.getElementById('cartTotal');
-      const badgeEl = document.getElementById('cartCountBadge');
-      const shippingText = document.getElementById('shippingText');
-      const shippingProgress = document.getElementById('shippingProgress');
-      const deliveryType = document.getElementById('deliveryType').value;
-
-      let subtotal = 0;
-      let totalQty = getTotalItemsCount();
-
-      badgeEl.innerText = `${totalQty} / ${maxOrderLimit} أصناف`;
+      const cartItemsList = document.getElementById('cartItemsList');
+      const totalCount = getTotalItemsCount();
+      document.getElementById('cartCountBadge').innerText = `${totalCount} / ${maxOrderLimit} أصناف`;
 
       if (cart.length === 0) {
-          cartList.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
-          totalEl.innerText = 'الإجمالي: 0 ر.س';
-          shippingText.innerText = `أضف بـ ${freeShippingThreshold.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
-          shippingProgress.style.width = '0%';
+          cartItemsList.innerHTML = '<div style="color:var(--text-muted); font-size:12px; text-align:center; padding:10px;">السلة فارغة حالياً</div>';
+          document.getElementById('cartTotal').innerText = 'الإجمالي: 0 ر.س';
+          document.getElementById('shippingProgress').style.width = '0%';
+          document.getElementById('shippingText').innerText = `أضف بـ ${freeShippingThreshold.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
           return;
       }
 
-      cartList.innerHTML = '';
+      let subtotal = 0;
+      let html = '';
+
       cart.forEach((item, index) => {
           const itemTotal = item.price * item.qty;
           subtotal += itemTotal;
-
-          cartList.innerHTML += `
+          html += `
               <div class="cart-item">
                   <div class="cart-item-info">
                       <div class="cart-item-name">${item.name}</div>
-                      <div class="cart-item-price">${item.price} ر.س × ${item.qty} = ${itemTotal} ر.س</div>
+                      <div class="cart-item-price">${item.price} ر.س x ${item.qty} = ${itemTotal} ر.س</div>
                   </div>
                   <div class="cart-controls">
-                      <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
-                      <span style="font-size:12px; color:#fff; font-weight:bold;">${item.qty}</span>
                       <button class="qty-btn" onclick="updateQuantity(${index}, 1)">+</button>
+                      <span>${item.qty}</span>
+                      <button class="qty-btn" onclick="updateQuantity(${index}, -1)">-</button>
                       <button class="delete-btn" onclick="removeFromCart(${index})">حذف</button>
                   </div>
               </div>
           `;
       });
 
-      let finalTotal = subtotal;
-      let shippingCost = 0;
+      cartItemsList.innerHTML = html;
 
-      if (deliveryType === "توصيل للمنزل") {
+      const deliveryType = document.getElementById('deliveryType').value;
+      let finalTotal = subtotal;
+      let shippingMessage = '';
+
+      if (deliveryType === 'توصيل للمنزل') {
           if (subtotal >= freeShippingThreshold) {
-              shippingCost = 0;
-              shippingText.innerText = '🎉 مبروك! حصلت على توصيل مجاني لطلبك! 🚚✨';
-              shippingProgress.style.width = '100%';
+              shippingMessage = '🎉 تهانينا! حصلت على توصيل مجاني! 🚚';
+              document.getElementById('shippingProgress').style.width = '100%';
           } else {
-              shippingCost = deliveryFeeConst;
               const remaining = freeShippingThreshold - subtotal;
-              const percent = (subtotal / freeShippingThreshold) * 100;
-              shippingText.innerText = `متبقي ${remaining.toFixed(2)} ر.س للحصول على التوصيل المجاني! 🚚`;
-              shippingProgress.style.width = `${percent}%`;
+              const progressPct = Math.min((subtotal / freeShippingThreshold) * 100, 100);
+              document.getElementById('shippingProgress').style.width = `${progressPct}%`;
+              shippingMessage = `أضف بـ ${remaining.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
+              finalTotal += deliveryFeeConst;
           }
       } else {
-          shippingCost = 0;
-          shippingText.innerText = '🏪 الاستلام من الفرع مجاني بدون رسوم توصيل!';
-          shippingProgress.style.width = '100%';
+          document.getElementById('shippingProgress').style.width = '100%';
+          shippingMessage = '🏪 خدمة الاستلام من الفرع بدون رسوم توصيل';
       }
 
-      finalTotal = subtotal + shippingCost;
-      totalEl.innerText = `الإجمالي: ${finalTotal} ر.س`;
+      document.getElementById('shippingText').innerText = shippingMessage;
+      document.getElementById('cartTotal').innerText = `الإجمالي: ${finalTotal} ر.س`;
   }
 
   function spinWheel() {
       const codeInput = document.getElementById('userCode').value.trim();
       if (!codeInput) {
-          alert('يرجى إدخال كود السحب أولاً لدوران العجلة!');
+          alert('يرجى إدخال كود السحب أولاً!');
           return;
       }
 
       if (hasSpun) {
-          alert('عذراً، لقد استخدمت فرصة تدوير العجلة لهذا الكود!');
+          alert('لقد قمت بإدارة العجلة واستخدام الكود بالفعل!');
           return;
       }
 
       const wheel = document.getElementById('wheel');
-      const resultEl = document.getElementById('wheelResult');
-      
-      const prizes = [
-          '🎁 خصم 10% على الطلب القادم',
-          '🍃 طبق فتة مجاني مع الطلب القادم',
-          '🚚 توصيل مجاني لطلبك القادم',
-          '🥤 مشروب مجاني مع الطلب',
-          '⭐ خصم 15% للطلب القادم'
-      ];
-
-      const randomIndex = Math.floor(Math.random() * prizes.length);
-      const degreesPerSegment = 72;
-      const targetDegree = 360 * 5 + (360 - (randomIndex * degreesPerSegment + degreesPerSegment / 2));
-
-      wheel.style.transform = `rotate(${targetDegree}deg)`;
+      const randomDegree = 1800 + Math.floor(Math.random() * 360);
+      wheel.style.transform = `rotate(${randomDegree}deg)`;
       hasSpun = true;
-      document.getElementById('spinButton').disabled = true;
 
       setTimeout(() => {
-          resultEl.innerText = `🎉 مبروك! فزت بـ: ${prizes[randomIndex]}`;
+          const prizes = [
+              '🎁 خصم 10% على طلبك القادم',
+              '🎁 صوص مجاني مع الطلب',
+              '🎁 حلا مجاني عند الطلب القادم',
+              '🎁 توصيل مجاني للطلب القادم',
+              '🎁 خصم 15% بمناسبة اليوم الوطني'
+          ];
+          const wonPrize = prizes[Math.floor(Math.random() * prizes.length)];
+          document.getElementById('wheelResult').innerText = `🎉 مبروك! كودك الفائز حصل على: ${wonPrize}`;
       }, 4000);
-  }
-
-  function shareOffer() {
-      const text = encodeURIComponent('🇸🇦 عروض اليوم الوطني 96 المذهلة من The Delicious Dolma! 🍃😋\nأطباق ورق عنب وملفوف وفتة حامضة وموزونة!\nاحجز طلبك الآن عبر الرابط المباشر 👇✨');
-      window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-  }
-
-  function contactSupport() {
-      window.open('https://api.whatsapp.com/send/?phone=0553627855&text&type=phone_number&app_absent=0', '_blank');
   }
 
   function checkoutWhatsApp() {
       if (cart.length === 0) {
-          alert('السلة فارغة! يرجى إضافة أصناف أولاً قبل إرسال الطلب.');
+          alert('السلة فارغة! يرجى إضافة بعض المنتجات أولاً.');
           return;
       }
 
       const deliveryType = document.getElementById('deliveryType').value;
       const deliveryDay = document.getElementById('deliveryDay').value;
       const deliveryTime = document.getElementById('deliveryTime').value;
-
       const isGift = document.getElementById('isGiftCheckbox').checked;
-      let giftInfoText = '';
 
-      if (isGift) {
-          const rName = document.getElementById('giftRecipientName').value.trim() || 'غير محدد';
-          const rPhone = document.getElementById('giftRecipientPhone').value.trim() || 'غير محدد';
-          const rMsg = document.getElementById('giftCardMessage').value.trim() || 'بدون رسالة';
+      let subtotal = cart.reduce((sum, item) => sum + (item.price * item.qty), 0);
+      let text = `*طلب جديد من متجر The Delicious Dolma 🇸🇦*\n----------------------------------------\n`;
 
-          giftInfoText = `\n🎁 *تفاصيل الإهداء:*` +
-                         `\n• اسم المستلم: ${rName}` +
-                         `\n• جوال المستلم: ${rPhone}` +
-                         `\n• كرت الإهداء: "${rMsg}"\n`;
-      }
-
-      let orderText = `*طلب جديد من متجر The Delicious Dolma 🍃🇸🇦*\n\n`;
-      orderText += `📋 *تفاصيل الطلب:*\n`;
-
-      let subtotal = 0;
       cart.forEach((item, i) => {
-          const itemTotal = item.price * item.qty;
-          subtotal += itemTotal;
-          orderText += `${i + 1}. ${item.name} (${item.qty}x) = ${itemTotal} ر.س\n`;
+          text += `${i + 1}. *${item.name}*\n   العدد: ${item.qty} | السعر: ${item.price * item.qty} ر.س\n`;
       });
 
-      let shippingCostText = "";
-      let finalTotal = subtotal;
+      text += `----------------------------------------\n`;
+      text += `*طريقة الاستلام:* ${deliveryType}\n`;
+      text += `*اليوم المفضل:* ${deliveryDay}\n`;
+      text += `*الوقت المفضل:* ${deliveryTime}\n`;
 
-      if (deliveryType === "توصيل للمنزل") {
+      let finalTotal = subtotal;
+      if (deliveryType === 'توصيل للمنزل') {
           if (subtotal >= freeShippingThreshold) {
-              shippingCostText = "مجاني (تجاوز 150 ر.س) 🎉";
+              text += `*التوصيل:* مجاني 🚚\n`;
           } else {
-              shippingCostText = "15 ر.س";
               finalTotal += deliveryFeeConst;
+              text += `*رسوم التوصيل:* ${deliveryFeeConst} ر.س\n`;
           }
-      } else {
-          shippingCostText = "مجاني (استلام من الفرع) 🏪";
       }
 
-      orderText += `\n💵 *مجموع المنتجات:* ${subtotal} ر.س`;
-      orderText += `\n🚚 *رسوم التوصيل:* ${shippingCostText}`;
-      orderText += `\n💰 *الإجمالي النهائي:* ${finalTotal} ر.س`;
-
-      orderText += `\n\n🚚 *نوع الطلب:* ${deliveryType}`;
-      orderText += `\n📅 *تاريخ/يوم الاستلام:* ${deliveryDay}`;
-      orderText += `\n⏰ *وقت التوصيل/الاستلام:* ${deliveryTime}`;
+      text += `*المجموع الكلي:* ${finalTotal} ر.س\n`;
 
       if (isGift) {
-          orderText += giftInfoText;
+          const recipientName = document.getElementById('giftRecipientName').value.trim();
+          const recipientPhone = document.getElementById('giftRecipientPhone').value.trim();
+          const cardMessage = document.getElementById('giftCardMessage').value.trim();
+
+          text += `----------------------------------------\n`;
+          text += `🎁 *تفاصيل طلب الإهداء:*\n`;
+          text += `• اسم المستلم: ${recipientName || 'غير محدد'}\n`;
+          text += `• جوال المستلم: ${recipientPhone || 'غير محدد'}\n`;
+          text += `• الرسالة: ${cardMessage || 'بدون رسالة'}\n`;
       }
 
-      orderText += `\n\n✨ شكراً لاختياركم The Delicious Dolma!`;
+      const storePhone = "966559127217"; // رقم استقبال الطلبات
+      const url = `https://api.whatsapp.com/send?phone=${storePhone}&text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+  }
 
-      // رابط إرسال الطلبات المباشر المحدث
-      window.open(`https://api.whatsapp.com/send/?phone=559127217&text=${encodeURIComponent(orderText)}&type=phone_number&app_absent=0&wame_ctl=1`, '_blank');
+  function shareOffer() {
+      const shareText = "🔥 لا تفوت عروض اليوم الوطني 96 من The Delicious Dolma! 😋🍃\nأطباق ورق عنب وملفوف وفتة حامضة وموزونة بأفضل الأسعار.\nاطلب الآن مباشرة عبر الرابط!";
+      const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+      window.open(url, '_blank');
+  }
+
+  function contactSupport() {
+      const supportPhone = "966559127217";
+      const supportText = "السلام عليكم، حاب استفسر عن عروض The Delicious Dolma ✨";
+      const url = `https://api.whatsapp.com/send?phone=${supportPhone}&text=${encodeURIComponent(supportText)}`;
+      window.open(url, '_blank');
   }
 </script>
-
 </body>
 </html>
