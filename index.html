@@ -539,9 +539,9 @@
     <!-- عجلة المكافآت -->
     <div class="wheel-box">
         <h3 style="color:var(--national-gold); font-size: 17px;">🎡 عجلة مكافآت اليوم الوطني</h3>
-        <p class="wheel-instruction">أدخل الكود (مثال: dolma-96) ➔ أدِر العجلة 🎡 ➔ احصل على قسيمة مكافأة لطلبك القادم! 🎁</p>
+        <p class="wheel-instruction">أدخل الكود الخاص بك ➔ أدِر العجلة 🎡 ➔ احصل على قسيمة مكافأة لطلبك القادم! 🎁 (متاحة مرة واحدة فقط)</p>
         
-        <input type="text" id="userCode" class="code-input" placeholder="أدخل كود السحب هنا (مثلاً: dolma-96)...">
+        <input type="text" id="userCode" class="code-input" placeholder="أدخل كود السحب هنا...">
         <button class="spin-btn" id="spinButton" onclick="spinWheel()">أدِر العجلة لتربح القسيمة 🎁</button>
 
         <div class="wheel-container">
@@ -648,9 +648,7 @@
   const freeShippingThreshold = 150;
   const deliveryFeeConst = 15;
   const maxOrderLimit = 4;
-  let hasSpun = false;
 
-  // قائمة الأكواد المقبولة ذات الطابع القصير
   const validCodes = [
       "dolma-96",
       "dolma96",
@@ -658,8 +656,32 @@
       "d96",
       "96",
       "دولمة96",
-      "dolma"
+      "dolma",
+      "saudi96",
+      "s96",
+      "g96",
+      "dolma-vip",
+      "vip96",
+      "leaf96",
+      "cabbage96",
+      "fata96",
+      "ورقعنب",
+      "ملفوف96",
+      "عروض96",
+      "الدلوعة",
+      "dd96"
   ];
+
+  window.addEventListener('DOMContentLoaded', () => {
+      const savedPrize = localStorage.getItem('dolma_wheel_prize');
+      if (savedPrize) {
+          document.getElementById('spinButton').disabled = true;
+          document.getElementById('spinButton').style.opacity = '0.5';
+          document.getElementById('spinButton').innerText = 'تم استخدام العجلة بالفعل ❌';
+          document.getElementById('userCode').disabled = true;
+          document.getElementById('wheelResult').innerText = savedPrize;
+      }
+  });
 
   document.getElementById('startBtn').addEventListener('click', function() {
       document.getElementById('promoModal').style.display = 'none';
@@ -820,7 +842,6 @@
       cartItemsList.innerHTML = html;
 
       const deliveryType = document.getElementById('deliveryType').value;
-      let finalTotal = subtotal;
       let shippingMessage = '';
 
       if (deliveryType === 'توصيل للمنزل') {
@@ -831,8 +852,7 @@
               const remaining = freeShippingThreshold - subtotal;
               const progressPct = Math.min((subtotal / freeShippingThreshold) * 100, 100);
               document.getElementById('shippingProgress').style.width = `${progressPct}%`;
-              shippingMessage = `أضف بـ ${remaining.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚`;
-              finalTotal += deliveryFeeConst;
+              shippingMessage = `أضف بـ ${remaining.toFixed(2)} ر.س للحصول على توصيل مجاني! 🚚 (رسوم التوصيل 15 ر.س عند الطلب)`;
           }
       } else {
           document.getElementById('shippingProgress').style.width = '100%';
@@ -840,34 +860,35 @@
       }
 
       document.getElementById('shippingText').innerText = shippingMessage;
-      document.getElementById('cartTotal').innerText = `الإجمالي: ${finalTotal} ر.س`;
+      document.getElementById('cartTotal').innerText = `إجمالي المنتجات: ${subtotal} ر.س`;
   }
 
   function spinWheel() {
+      if (localStorage.getItem('dolma_wheel_prize')) {
+          alert('⚠️ لقد قمت بإدارة العجلة بالفعل من هذا الجهاز ولا يمكن تدويرها مجدداً!');
+          return;
+      }
+
       const codeInput = document.getElementById('userCode').value.trim().toLowerCase();
       
       if (!codeInput) {
-          alert('يرجى إدخال كود السحب أولاً! (مثال: dolma-96)');
+          alert('يرجى إدخال كود السحب أولاً!');
           return;
       }
 
       if (!validCodes.includes(codeInput)) {
-          alert('⚠️ الكود غير صحيح، يرجى كتابة كود صالح مثل: dolma-96');
-          return;
-      }
-
-      if (hasSpun) {
-          alert('لقد قمت بإدارة العجلة واستخدام الكود بالفعل!');
+          alert('⚠️ الكود المكتوب غير صحيح، يرجى التأكد من الكود المرفق مع العرض.');
           return;
       }
 
       const wheel = document.getElementById('wheel');
       const randomDegree = 1800 + Math.floor(Math.random() * 360);
       wheel.style.transform = `rotate(${randomDegree}deg)`;
-      hasSpun = true;
+      
+      document.getElementById('spinButton').disabled = true;
+      document.getElementById('userCode').disabled = true;
 
       setTimeout(() => {
-          // الجوائز الخمس المحددة حصراً
           const prizes = [
               '🎁 طبق فتة وسط مجاني عند طلبك القادم',
               '🎁 خصم 10% على طلبك القادم',
@@ -876,7 +897,13 @@
               '🎁 خصم 5 ريال على التوصيل لطلبك القادم'
           ];
           const wonPrize = prizes[Math.floor(Math.random() * prizes.length)];
-          document.getElementById('wheelResult').innerText = `🎉 مبروك! حصلت على: ${wonPrize}`;
+          const resultText = `🎉 مبروك! حصلت على: ${wonPrize}`;
+          
+          document.getElementById('wheelResult').innerText = resultText;
+          document.getElementById('spinButton').innerText = 'تم استخدام العجلة ❌';
+          document.getElementById('spinButton').style.opacity = '0.5';
+
+          localStorage.setItem('dolma_wheel_prize', resultText);
       }, 4000);
   }
 
@@ -902,18 +929,19 @@
       text += `*طريقة الاستلام:* ${deliveryType}\n`;
       text += `*اليوم المفضل:* ${deliveryDay}\n`;
       text += `*الوقت المفضل:* ${deliveryTime}\n`;
+      text += `*إجمالي المنتجات:* ${subtotal} ر.س\n`;
 
-      let finalTotal = subtotal;
       if (deliveryType === 'توصيل للمنزل') {
           if (subtotal >= freeShippingThreshold) {
-              text += `*التوصيل:* مجاني 🚚\n`;
+              text += `*رسوم التوصيل:* مجاني 🚚\n`;
+              text += `*المجموع الكلي المطلوب:* ${subtotal} ر.س\n`;
           } else {
-              finalTotal += deliveryFeeConst;
-              text += `*رسوم التوصيل:* ${deliveryFeeConst} ر.س\n`;
+              text += `*رسوم التوصيل:* 15 ر.س 🚚\n`;
+              text += `*المجموع الكلي مع التوصيل:* ${subtotal + deliveryFeeConst} ر.س\n`;
           }
+      } else {
+          text += `*المجموع الكلي:* ${subtotal} ر.س\n`;
       }
-
-      text += `*المجموع الكلي:* ${finalTotal} ر.س\n`;
 
       if (isGift) {
           const recipientName = document.getElementById('giftRecipientName').value.trim();
@@ -927,7 +955,7 @@
           text += `• الرسالة: ${cardMessage || 'بدون رسالة'}\n`;
       }
 
-      const storePhone = "966559127217"; // رقم استقبال الطلبات
+      const storePhone = "966559127217";
       const url = `https://api.whatsapp.com/send?phone=${storePhone}&text=${encodeURIComponent(text)}`;
       window.open(url, '_blank');
   }
