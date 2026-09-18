@@ -539,9 +539,9 @@
     <!-- عجلة المكافآت -->
     <div class="wheel-box">
         <h3 style="color:var(--national-gold); font-size: 17px;">🎡 عجلة مكافآت اليوم الوطني</h3>
-        <p class="wheel-instruction">أدخل الكود 🔑 ➔ أدِر العجلة 🎡 ➔ احصل على قسيمة مكافأة لطلبك القادم! 🎁</p>
+        <p class="wheel-instruction">أدخل الكود (مثال: dolma-96) ➔ أدِر العجلة 🎡 ➔ احصل على قسيمة مكافأة لطلبك القادم! 🎁</p>
         
-        <input type="text" id="userCode" class="code-input" placeholder="أدخل كود السحب هنا...">
+        <input type="text" id="userCode" class="code-input" placeholder="أدخل كود السحب هنا (مثلاً: dolma-96)...">
         <button class="spin-btn" id="spinButton" onclick="spinWheel()">أدِر العجلة لتربح القسيمة 🎁</button>
 
         <div class="wheel-container">
@@ -649,6 +649,17 @@
   const deliveryFeeConst = 15;
   const maxOrderLimit = 4;
   let hasSpun = false;
+
+  // قائمة الأكواد المقبولة ذات الطابع القصير
+  const validCodes = [
+      "dolma-96",
+      "dolma96",
+      "dolma-96h",
+      "d96",
+      "96",
+      "دولمة96",
+      "dolma"
+  ];
 
   document.getElementById('startBtn').addEventListener('click', function() {
       document.getElementById('promoModal').style.display = 'none';
@@ -833,9 +844,15 @@
   }
 
   function spinWheel() {
-      const codeInput = document.getElementById('userCode').value.trim();
+      const codeInput = document.getElementById('userCode').value.trim().toLowerCase();
+      
       if (!codeInput) {
-          alert('يرجى إدخال كود السحب أولاً!');
+          alert('يرجى إدخال كود السحب أولاً! (مثال: dolma-96)');
+          return;
+      }
+
+      if (!validCodes.includes(codeInput)) {
+          alert('⚠️ الكود غير صحيح، يرجى كتابة كود صالح مثل: dolma-96');
           return;
       }
 
@@ -850,15 +867,16 @@
       hasSpun = true;
 
       setTimeout(() => {
+          // الجوائز الخمس المحددة حصراً
           const prizes = [
+              '🎁 طبق فتة وسط مجاني عند طلبك القادم',
               '🎁 خصم 10% على طلبك القادم',
-              '🎁 صوص مجاني مع الطلب',
-              '🎁 حلا مجاني عند الطلب القادم',
-              '🎁 توصيل مجاني للطلب القادم',
-              '🎁 خصم 15% بمناسبة اليوم الوطني'
+              '🎁 توصيل مجاني لطلبك القادم',
+              '🎁 خصم 5% على طلبك القادم',
+              '🎁 خصم 5 ريال على التوصيل لطلبك القادم'
           ];
           const wonPrize = prizes[Math.floor(Math.random() * prizes.length)];
-          document.getElementById('wheelResult').innerText = `🎉 مبروك! كودك الفائز حصل على: ${wonPrize}`;
+          document.getElementById('wheelResult').innerText = `🎉 مبروك! حصلت على: ${wonPrize}`;
       }, 4000);
   }
 
